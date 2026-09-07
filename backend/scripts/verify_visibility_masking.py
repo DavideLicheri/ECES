@@ -15,7 +15,7 @@ Uso:
     python3 scripts/verify_visibility_masking.py
 
 Lo script:
-1. Applica schema.sql + le migrazioni 002-005 (idempotenti, IF NOT EXISTS --
+1. Applica schema.sql + le migrazioni 002-006 (idempotenti, IF NOT EXISTS --
    sicuro anche se gia' applicate).
 2. Inserisce dati di test isolati (canonical_string con prefisso
    'TESTMASK_', per poterli riconoscere e ripulire senza toccare dati reali).
@@ -23,7 +23,12 @@ Lo script:
    get_visible_events_for_alias, get_alias_life_history) simulando 6 utenti
    diversi (anonimo, viewer, user, rings_admin con scheme che combacia,
    rings_admin senza match, super_admin) e stampa/verifica i risultati.
-4. Ripulisce SEMPRE i dati di test alla fine (anche in caso di errore),
+4. Verifica lo storico immutabile della condivisione mirata (migrazione 006,
+   07/09/2026): 3 chiamate a set_alias_sharing_intent con stati/messaggi
+   diversi devono lasciare tutte e 3 le tracce nello storico, mentre lo
+   stato "attuale" riflette solo l'ultima -- e lo storico deve essere
+   identico visto da entrambi i proprietari coinvolti.
+5. Ripulisce SEMPRE i dati di test alla fine (anche in caso di errore),
    indipendentemente da come va la verifica.
 
 Se una asserzione fallisce, lo script si ferma con un AssertionError chiaro
@@ -152,6 +157,10 @@ async def _cleanup(pool: asyncpg.Pool):
         if alias_ids:
             await conn.execute("DELETE FROM alias_owner_visibility WHERE alias_id = ANY($1)", alias_ids)
             await conn.execute("DELETE FROM alias_sharing_intent WHERE alias_id = ANY($1)", alias_ids)
+            # Storico immutabile (migrazione 006, 07/09/2026) -- va ripulito
+            # anche lui prima di poter cancellare ring_alias (stesso vincolo
+            # di chiave esterna delle altre tabelle sopra).
+            await conn.execute("DELETE FROM alias_sharing_intent_log WHERE alias_id = ANY($1)", alias_ids)
         if cids:
             await conn.execute("DELETE FROM euring_2020_canonical WHERE id = ANY($1)", cids)  # CASCADE su field_values
         if alias_ids:
@@ -240,6 +249,62 @@ async def main():
                 if e["kind"] == "masked":
                     assert "ringing scheme" not in e["masked_fields"], f"BUG: scheme reale in life_history mascherata per {label}"
         print("  OK.")
+
+        print("\n=== storico condivisione mirata (migrazione 006, 07/09/2026) ===")
+        # owner1 e owner2 possiedono entrambi un evento su alias_a (vedi
+        # _seed) -- condizione richiesta da set_alias_sharing_intent per
+        # accettare la scelta (entrambi devono essere proprietari reali).
+        ok1 = await db.set_alias_sharing_intent(
+            alias_id=ids["alias_a"], from_username="owner1", to_username="owner2",
+            state="offered", message="Prima proposta di condivisione",
+        )
+        assert ok1, "set_alias_sharing_intent (1a chiamata) doveva riuscire"
+        ok2 = await db.set_alias_sharing_intent(
+            alias_id=ids["alias_a"], from_username="owner1", to_username="owner2",
+            state="declined", message="Ripensandoci, rifiuto",
+        )
+        assert ok2, "set_alias_sharing_intent (2a chiamata) doveva riuscire"
+        ok3 = await db.set_alias_sharing_intent(
+            alias_id=ids["alias_a"], from_username="owner1", to_username="owner2",
+            state="offered", message="Ho cambiato ancora idea, condivido",
+        )
+        assert ok3, "set_alias_sharing_intent (3a chiamata) doveva riuscire"
+
+        status_owner1 = await db.get_my_sharing_status(ids["alias_a"], "owner1")
+        assert status_owner1 is not None, "owner1 possiede dati su alias_a, get_my_sharing_status non deve fallire"
+        other = next((o for o in status_owner1["others"] if o["username"] == "owner2"), None)
+        assert other is not None, "owner2 deve comparire come 'other' per owner1"
+
+        # Stato ATTUALE (alias_sharing_intent, UPSERT) deve riflettere SOLO
+        # l'ultima chiamata -- comportamento invariato, non stiamo toccando
+        # questa logica.
+        assert other["my_state"] == "offered", "lo stato attuale deve essere l'ultimo impostato (offered)"
+        assert other["my_message"] == "Ho cambiato ancora idea, condivido", \
+            "il messaggio attuale deve essere l'ultimo impostato"
+
+        # Storico (alias_sharing_intent_log, append-only) deve avere TUTTE
+        # e 3 le chiamate, in ordine cronologico -- questo e' il punto
+        # centrale della richiesta di Davide: nessuna delle 3 versioni deve
+        # andare perduta.
+        history = other["history"]
+        assert len(history) == 3, f"lo storico deve avere le 3 chiamate fatte, trovate {len(history)}"
+        assert [h["state"] for h in history] == ["offered", "declined", "offered"], \
+            "lo storico deve riflettere l'ordine cronologico esatto degli stati impostati"
+        assert [h["message"] for h in history] == [
+            "Prima proposta di condivisione", "Ripensandoci, rifiuto", "Ho cambiato ancora idea, condivido",
+        ], "lo storico deve conservare TUTTI i messaggi precedenti, non solo l'ultimo"
+        assert all(h["from_username"] == "owner1" for h in history), \
+            "tutte le voci di questo storico sono state scritte da owner1 verso owner2"
+
+        # Simmetria: owner2 deve vedere lo STESSO storico (stessa relazione,
+        # letta dall'altro lato) -- la cronologia non e' privata di chi la
+        # consulta, e' condivisa tra i due proprietari coinvolti.
+        status_owner2 = await db.get_my_sharing_status(ids["alias_a"], "owner2")
+        other_from_2 = next((o for o in status_owner2["others"] if o["username"] == "owner1"), None)
+        assert other_from_2 is not None
+        assert len(other_from_2["history"]) == 3, "owner2 deve vedere lo stesso storico di owner1 (stessa relazione)"
+        assert other_from_2["their_state"] == "offered", "owner2 deve vedere lo stato attuale di owner1 come 'their_state'"
+        print("  OK: storico immutabile completo (3/3 voci), stato attuale coerente, simmetrico tra i due proprietari.")
 
         print("\nTUTTE LE VERIFICHE PASSATE.")
 

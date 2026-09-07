@@ -1516,6 +1516,24 @@ class DatabaseService:
                         "SELECT state, message FROM alias_sharing_intent WHERE alias_id = $1 AND from_username = $2 AND to_username = $3",
                         alias_id, other_username, username,
                     )
+                    # Storico immutabile delle scelte in ENTRAMBE le
+                    # direzioni tra questi due proprietari (migrazione 006,
+                    # 07/09/2026) -- risponde al rischio "nessuna prova in
+                    # caso di disputa / messaggio modificato senza
+                    # preavviso" sollevato da Davide. Ordine cronologico
+                    # crescente cosi' la UI puo' mostrarlo come una lista
+                    # "dal piu' vecchio al piu' recente".
+                    history_rows = await conn.fetch(
+                        """
+                        SELECT from_username, state, message, decided_at
+                        FROM alias_sharing_intent_log
+                        WHERE alias_id = $1
+                          AND ((from_username = $2 AND to_username = $3)
+                            OR (from_username = $3 AND to_username = $2))
+                        ORDER BY decided_at ASC, id ASC
+                        """,
+                        alias_id, username, other_username,
+                    )
                     others.append({
                         "username": other_username,
                         "my_state": my_intent["state"] if my_intent else None,
@@ -1530,6 +1548,15 @@ class DatabaseService:
                             my_intent and my_intent["state"] == "offered"
                             and their_intent and their_intent["state"] == "offered"
                         ),
+                        "history": [
+                            {
+                                "from_username": h["from_username"],
+                                "state": h["state"],
+                                "message": h["message"],
+                                "decided_at": h["decided_at"].isoformat(),
+                            }
+                            for h in history_rows
+                        ],
                     })
 
                 return {"is_public": bool(is_public), "others": others}
@@ -1595,16 +1622,33 @@ class DatabaseService:
                 if not await self._owns_alias(conn, alias_id, to_username):
                     return False
 
-                await conn.execute(
-                    """
-                    INSERT INTO alias_sharing_intent
-                        (alias_id, from_username, to_username, state, message, decided_at)
-                    VALUES ($1, $2, $3, $4, $5, NOW())
-                    ON CONFLICT (alias_id, from_username, to_username)
-                    DO UPDATE SET state = EXCLUDED.state, message = EXCLUDED.message, decided_at = NOW()
-                    """,
-                    alias_id, from_username, to_username, state, message,
-                )
+                # Transazione: l'UPSERT sullo stato attuale e la riga di
+                # storico (migrazione 006, 07/09/2026 -- vedi commento in
+                # testa al file SQL) devono valere insieme o non valere
+                # affatto, altrimenti uno stato "attuale" potrebbe non avere
+                # mai una traccia corrispondente nello storico.
+                async with conn.transaction():
+                    await conn.execute(
+                        """
+                        INSERT INTO alias_sharing_intent
+                            (alias_id, from_username, to_username, state, message, decided_at)
+                        VALUES ($1, $2, $3, $4, $5, NOW())
+                        ON CONFLICT (alias_id, from_username, to_username)
+                        DO UPDATE SET state = EXCLUDED.state, message = EXCLUDED.message, decided_at = NOW()
+                        """,
+                        alias_id, from_username, to_username, state, message,
+                    )
+                    # Riga di storico immutabile -- MAI un UPDATE/DELETE su
+                    # questa tabella da nessuna parte del codice, vedi
+                    # commento su alias_sharing_intent_log in migrazione 006.
+                    await conn.execute(
+                        """
+                        INSERT INTO alias_sharing_intent_log
+                            (alias_id, from_username, to_username, state, message, decided_at)
+                        VALUES ($1, $2, $3, $4, $5, NOW())
+                        """,
+                        alias_id, from_username, to_username, state, message,
+                    )
                 return True
         except Exception as e:
             logger.error(

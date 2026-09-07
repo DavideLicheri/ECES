@@ -74,6 +74,18 @@ interface AliasSummary {
   life_history: LifeHistoryEvent[];
 }
 
+// Storico immutabile di ogni scelta di condivisione mai fatta tra i due
+// proprietari (migrazione 006, 07/09/2026) -- risponde al rischio "nessuna
+// prova in caso di disputa / messaggio modificato senza preavviso"
+// sollevato da Davide dopo aver visto che alias_sharing_intent e' un
+// semplice UPSERT senza traccia. Ordine cronologico crescente (dal server).
+interface SharingHistoryEntry {
+  from_username: string;
+  state: 'offered' | 'declined';
+  message: string | null;
+  decided_at: string;
+}
+
 interface SharingOther {
   username: string;
   my_state: 'offered' | 'declined' | null;
@@ -81,6 +93,7 @@ interface SharingOther {
   their_state: 'offered' | 'declined' | null;
   their_message: string | null;
   mutually_shared: boolean;
+  history: SharingHistoryEntry[];
 }
 
 interface SharingStatus {
@@ -93,6 +106,23 @@ const VISIBILITY_LABELS: Record<Visibility, string> = {
   public: 'Pubblico',
   private: 'Privato',
   shared: 'Condiviso',
+};
+
+// Etichetta per ogni voce di cronologia condivisione (migrazione 006).
+const SHARING_STATE_LABELS: Record<'offered' | 'declined', string> = {
+  offered: 'Condiviso',
+  declined: 'Non condiviso',
+};
+
+const formatHistoryDate = (iso: string): string => {
+  try {
+    return new Date(iso).toLocaleString('it-IT', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+  } catch {
+    return iso;
+  }
 };
 
 // Priorita' #6 (02-04/09/2026): etichetta breve per il livello di dettaglio
@@ -138,6 +168,9 @@ const ArchivePanel = () => {
   const [sharingMessages, setSharingMessages] = useState<Record<string, string>>({});
   const [sharingBusy, setSharingBusy] = useState<Record<string, boolean>>({});
   const [sharingError, setSharingError] = useState<Record<number, string>>({});
+  // Cronologia condivisione (migrazione 006): chiusa di default per non
+  // appesantire la vista, apribile per riga+proprietario.
+  const [expandedHistory, setExpandedHistory] = useState<Record<string, boolean>>({});
 
   const isAuthenticated = authService.isAuthenticated();
 
@@ -498,6 +531,39 @@ const ArchivePanel = () => {
                                                   {other.my_state === 'declined' ? 'Rifiutato' : 'Rifiuta'}
                                                 </button>
                                               </div>
+                                              {other.history.length > 0 && (
+                                                <div className="sharing-history">
+                                                  <button
+                                                    className="sharing-history-toggle"
+                                                    onClick={() =>
+                                                      setExpandedHistory((prev) => ({
+                                                        ...prev,
+                                                        [msgKey]: !prev[msgKey],
+                                                      }))
+                                                    }
+                                                  >
+                                                    {expandedHistory[msgKey] ? '▾' : '▸'} Cronologia ({other.history.length})
+                                                  </button>
+                                                  {expandedHistory[msgKey] && (
+                                                    <ul className="sharing-history-list">
+                                                      {other.history.map((h, idx) => (
+                                                        <li key={idx} className="sharing-history-entry">
+                                                          <span className="sharing-history-who">
+                                                            {h.from_username === other.username ? other.username : 'tu'}
+                                                          </span>
+                                                          <span className={`sharing-history-state sharing-history-state-${h.state}`}>
+                                                            {SHARING_STATE_LABELS[h.state]}
+                                                          </span>
+                                                          <span className="sharing-history-date">{formatHistoryDate(h.decided_at)}</span>
+                                                          {h.message && (
+                                                            <div className="sharing-history-message">"{h.message}"</div>
+                                                          )}
+                                                        </li>
+                                                      ))}
+                                                    </ul>
+                                                  )}
+                                                </div>
+                                              )}
                                             </div>
                                           );
                                         })}

@@ -470,3 +470,64 @@
   opacity: 0.6;
   cursor: default;
 }
+
+/* Cronologia condivisione (migrazione 006, 07/09/2026) */
+.sharing-history {
+  margin-top: 8px;
+}
+
+.sharing-history-toggle {
+  background: none;
+  border: none;
+  color: #663333;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.sharing-history-list {
+  list-style: none;
+  margin: 6px 0 0 0;
+  padding: 0;
+  border-left: solid 2px #eee;
+}
+
+.sharing-history-entry {
+  font-size: 11px;
+  padding: 4px 0 4px 8px;
+  border-bottom: solid 1px #f2f2f2;
+}
+
+.sharing-history-who {
+  font-weight: 500;
+  color: #663333;
+  margin-right: 6px;
+}
+
+.sharing-history-state {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-right: 6px;
+}
+
+.sharing-history-state-offered {
+  background: #e6f4ea;
+  color: #1e7b34;
+}
+
+.sharing-history-state-declined {
+  background: #f4e6e6;
+  color: #a33;
+}
+
+.sharing-history-date {
+  color: #999;
+}
+
+.sharing-history-message {
+  font-style: italic;
+  color: #666;
+  margin-top: 2px;
+}
