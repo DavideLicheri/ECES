@@ -57,6 +57,17 @@ class User(BaseModel):
     # verificare) -- il campo dati esiste ma va usato con cautela finche' non
     # confermato (docs/PROPOSTA_RUOLI_LIVELLI_CONDIVISIONE.md, punto aperto 1).
     territory_place_codes: List[str] = []
+    # Promozione automatica viewer->user (punto aperto 2 del documento di
+    # design, deciso con Davide 08/09/2026): quando un viewer archivia una
+    # stringa genuinamente nuova (is_new=True, vedi archive_service.py) sotto
+    # il proprio account, viene promosso a user. Il token JWT gia' in mano
+    # al browser resta pero' "viewer" finche' non si rifa' login -- questo
+    # flag lo segnala UNA TANTUM alla prossima lettura del profilo (login o
+    # /api/auth/me), che lo consuma subito dopo (auth_api.py). Default False,
+    # nessuna migrazione dati: chi non ce l'ha in users.json lo ottiene da
+    # Pydantic al caricamento, stesso pattern non-migratorio degli altri
+    # campi opzionali sopra.
+    pending_promotion_notice: bool = False
 
 class UserLogin(BaseModel):
     """Login request model"""

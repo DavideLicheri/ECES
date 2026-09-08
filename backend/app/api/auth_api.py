@@ -69,7 +69,18 @@ async def login(user_credentials: UserLogin):
             detail="Invalid username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
+    # Consuma qui l'avviso una tantum di promozione automatica viewer->user
+    # (punto aperto 2 del documento di design, deciso con Davide 08/09/2026):
+    # 'user' e' gia' stato caricato sopra con il valore persistito (True se
+    # in sospeso), quindi resta True in QUESTA risposta anche se lo storage
+    # viene azzerato subito dopo -- il prossimo login non lo rivedra' piu'.
+    # Deliberatamente qui e non in get_current_user/get_current_active_user
+    # (usati su ogni richiesta autenticata): altrimenti il flag verrebbe
+    # consumato prima che il frontend abbia mai la possibilita' di vederlo
+    # (vedi commento su auth_service.consume_promotion_notice).
+    auth_service.consume_promotion_notice(user.username)
+
     token = auth_service.create_access_token(user)
     return token
 
@@ -77,7 +88,13 @@ async def login(user_credentials: UserLogin):
 async def get_current_user_info(current_user: User = Depends(get_current_active_user)):
     """
     Get current user information
+
+    Consuma anche qui l'avviso una tantum di promozione automatica
+    viewer->user (stesso motivo di /login, vedi commento li' -- questo
+    endpoint e /login sono gli UNICI due punti che devono consumarlo, perche'
+    sono gli unici che espongono l'intero oggetto User al client).
     """
+    auth_service.consume_promotion_notice(current_user.username)
     return current_user
 
 @router.post("/users", response_model=User)

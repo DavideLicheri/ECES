@@ -18,6 +18,14 @@ export interface User {
   // (02/09/2026). Irrilevanti/assenti per gli altri ruoli.
   ringing_scheme?: string;
   territory_place_codes?: string[];
+  // Promozione automatica viewer->user (punto aperto 2 del documento di
+  // design, deciso con Davide 08/09/2026): avviso una tantum, presente SOLO
+  // nella risposta di /login o /me immediatamente successiva alla
+  // promozione lato server (che lo consuma subito dopo averlo esposto qui).
+  // Non usare direttamente questo campo per mostrare il banner -- vedi
+  // AuthService.consumePendingPromotionNotice(), che lo rende persistente
+  // anche attraverso la seconda chiamata /me ridondante che segue il login.
+  pending_promotion_notice?: boolean;
 }
 
 export interface RingsAdminAssignmentUpdate {
@@ -76,6 +84,16 @@ class AuthService {
   private baseURL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/auth`;
   private tokenKey = 'eces_token';
   private userKey = 'eces_user';
+  // Flag "sticky", separato da eces_user (promozione automatica viewer->user,
+  // 08/09/2026): sia login() sia getCurrentUser() possono osservare
+  // pending_promotion_notice=true nella LORO singola risposta -- ma App.tsx
+  // chiama getCurrentUser() una seconda volta subito dopo un login riuscito
+  // (handleLoginSuccess), e quella seconda chiamata /me arriva quando il
+  // flag e' gia' stato consumato lato server, quindi risponde gia' false e
+  // sovrascriverebbe eces_user perdendo il segnale. Questa chiave separata
+  // non viene mai sovrascritta a false, solo scritta a true e poi rimossa
+  // esplicitamente da consumePendingPromotionNotice() quando la UI la mostra.
+  private pendingPromotionKey = 'eces_pending_promotion_notice';
 
   // Get stored token
   getToken(): string | null {
@@ -117,11 +135,14 @@ class AuthService {
     }
 
     const data: LoginResponse = await response.json();
-    
+
     // Store token and user
     localStorage.setItem(this.tokenKey, data.access_token);
     localStorage.setItem(this.userKey, JSON.stringify(data.user));
-    
+    if (data.user.pending_promotion_notice) {
+      localStorage.setItem(this.pendingPromotionKey, '1');
+    }
+
     return data;
   }
 
@@ -145,6 +166,7 @@ class AuthService {
     // Clear local storage
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.pendingPromotionKey);
   }
 
   // Get current user info from server
@@ -170,7 +192,23 @@ class AuthService {
 
     const user: User = await response.json();
     localStorage.setItem(this.userKey, JSON.stringify(user));
+    if (user.pending_promotion_notice) {
+      localStorage.setItem(this.pendingPromotionKey, '1');
+    }
     return user;
+  }
+
+  // Legge e CANCELLA il flag "promozione in sospeso" (promozione automatica
+  // viewer->user, 08/09/2026): va mostrato una volta sola all'utente, poi
+  // non deve ripresentarsi ad ogni refresh/render successivo. Vedi il
+  // commento su pendingPromotionKey sopra per il perche' di questa chiave
+  // separata da eces_user.
+  consumePendingPromotionNotice(): boolean {
+    const wasPending = localStorage.getItem(this.pendingPromotionKey) === '1';
+    if (wasPending) {
+      localStorage.removeItem(this.pendingPromotionKey);
+    }
+    return wasPending;
   }
 
   // Get user permissions

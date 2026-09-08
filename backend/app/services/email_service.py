@@ -208,5 +208,69 @@ ISPRA - DG SINA
             logger.error(f"Failed to send alias touched notification: {e}")
             return False
 
+    def send_promotion_notification(self, user_data: dict) -> bool:
+        """
+        Notifica di promozione automatica viewer->user (punto aperto 2 del
+        documento di design, deciso con Davide 08/09/2026): innescata da
+        archive_service.archive_string() alla prima sottomissione genuinamente
+        nuova (is_new=True) di un viewer, esclusa esplicitamente 'lizzy'.
+
+        Il testo principale "esci e rientra per vedere il nuovo ruolo" vive
+        nel banner in-app (UserProfile.tsx), non qui -- Davide ha chiarito
+        esplicitamente che il banner e' il canale primario per
+        quell'istruzione. Questa email resta un avviso semplice, secondario;
+        la menziona comunque di sfuggita per chi legge solo l'email e non
+        torna subito sull'app.
+        """
+        if not self.email_enabled:
+            logger.info(
+                f"Email disabled - Would notify: promotion viewer->user for "
+                f"{user_data['username']}"
+            )
+            return True
+
+        try:
+            msg = MIMEMultipart()
+            msg['From'] = self.from_email
+            msg['To'] = user_data['email']
+            msg['Subject'] = "ECES - Sei stato promosso a Contributore"
+
+            body = f"""
+Ciao {user_data['full_name']},
+
+Hai archiviato con successo la tua prima stringa EURING in ECES: il tuo account e' stato promosso da Visualizzatore a Contributore.
+
+👤 Account: {user_data['username']}
+
+🔓 Con il nuovo ruolo puoi usare anche il Riconoscimento e la Conversione dei codici EURING, oltre alla visualizzazione gia' disponibile prima.
+
+Se non vedi subito il nuovo ruolo attivo nell'app, esci e rientra: il tuo accesso corrente resta legato al ruolo precedente finche' non rientri.
+
+🌐 Accedi a ECES: http://localhost:3001
+
+---
+Sistema ECES - EURING Code Evolution System
+ISPRA - DG SINA
+"""
+
+            msg.attach(MIMEText(body, 'plain', 'utf-8'))
+
+            if self.smtp_username and self.smtp_password:
+                server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+                server.starttls()
+                server.login(self.smtp_username, self.smtp_password)
+                server.send_message(msg)
+                server.quit()
+
+                logger.info(f"Promotion notification sent for user: {user_data['username']}")
+                return True
+            else:
+                logger.warning("SMTP credentials not configured - email not sent")
+                return False
+
+        except Exception as e:
+            logger.error(f"Failed to send promotion notification: {e}")
+            return False
+
 # Global email service instance
 email_service = EmailService()

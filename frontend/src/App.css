@@ -20,6 +20,41 @@ body {
   background-color: #FFFAF0;
 }
 
+/* Banner promozione automatica viewer->user (08/09/2026, avviso una tantum
+   dopo la prima archiviazione riuscita di un viewer -- vedi App.tsx e
+   services/auth.ts). Verde per distinguerlo visivamente da eventuali
+   messaggi di errore/attenzione altrove nell'app. */
+.promotion-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #e6f4ea;
+  color: #1e4620;
+  border-bottom: solid 1px #a3d6ab;
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+}
+
+.promotion-banner-text {
+  flex: 1;
+  max-width: 900px;
+}
+
+.promotion-banner-close {
+  background: none;
+  border: none;
+  color: #1e4620;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+}
+
+.promotion-banner-close:hover {
+  color: #0d2b0f;
+}
+
 /* Header - ECES Style with EPE Logo (compatibility) */
 .app-header {
   background-color: #663333;

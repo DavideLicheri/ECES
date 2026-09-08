@@ -42,6 +42,11 @@ function App() {
   const [showRegister, setShowRegister] = useState(false)
   const [showUserProfile, setShowUserProfile] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  // Banner promozione automatica viewer->user (punto aperto 2 del documento
+  // di design, deciso con Davide 08/09/2026): mostrato una tantum quando
+  // authService.consumePendingPromotionNotice() rileva il flag -- vedi
+  // services/auth.ts per il perche' di quel meccanismo "sticky" separato.
+  const [showPromotionBanner, setShowPromotionBanner] = useState(false)
   const navRef = useRef<HTMLElement>(null)
 
   // Voci di menu raggruppate per cluster funzionale (troppe tab singole in fila
@@ -112,6 +117,9 @@ function App() {
           const user = await authService.getCurrentUser()
           setCurrentUser(user)
           setIsAuthenticated(true)
+          if (authService.consumePendingPromotionNotice()) {
+            setShowPromotionBanner(true)
+          }
         } catch (error) {
           console.warn('Auth check failed:', error)
           authService.logout()
@@ -128,6 +136,9 @@ function App() {
       const user = await authService.getCurrentUser()
       setCurrentUser(user)
       setIsAuthenticated(true)
+      if (authService.consumePendingPromotionNotice()) {
+        setShowPromotionBanner(true)
+      }
     } catch (error) {
       console.error('Failed to get user after login:', error)
     }
@@ -138,6 +149,7 @@ function App() {
     setCurrentUser(null)
     setIsAuthenticated(false)
     setActiveTab('recognize')
+    setShowPromotionBanner(false)
   }
 
   if (loading) {
@@ -194,6 +206,23 @@ function App() {
           </div>
         </div>
       </header>
+
+      {showPromotionBanner && (
+        <div className="promotion-banner">
+          <span className="promotion-banner-text">
+            🎉 Sei stato promosso da Visualizzatore a Contributore: ora puoi usare anche Riconoscimento e Conversione.
+            {' '}Esci e rientra per vedere subito il nuovo ruolo applicato in tutta l'app.
+          </span>
+          <button
+            className="promotion-banner-close"
+            onClick={() => setShowPromotionBanner(false)}
+            aria-label="Chiudi avviso"
+            title="Chiudi avviso"
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       <nav className="tab-navigation" ref={navRef}>
         {navGroups.map((group) => {

@@ -146,6 +146,18 @@ class ArchiveService:
             if is_new and owner_username:
                 await self._maybe_increment_lizzy_stats(parsed["fields"], owner_username)
 
+            # Promozione automatica viewer->user (punto aperto 2 del documento
+            # di design, deciso con Davide 08/09/2026): SOLO alla prima
+            # comparsa genuina di questa stringa esatta (is_new, non ad ogni
+            # resottomissione) e MAI per l'account 'lizzy' (che archivia in
+            # background ad ogni sua chiamata /recognize o /convert -- vedi
+            # euring_api.py e il commento su archive_service.archive_string
+            # nella docstring del modulo -- promuoverla sarebbe un effetto
+            # collaterale indesiderato della sua attivita' di consultazione,
+            # non una vera contribuzione umana).
+            if is_new and owner_username and owner_username != "lizzy":
+                await self._maybe_promote_viewer(owner_username)
+
             # Notifica generica agli altri proprietari dello stesso alias
             # (redesign condivisione, migrazione 005, 07/08/2026) -- sostituisce
             # la vecchia condivisione automatica. Mai il contenuto del dato,
@@ -210,6 +222,33 @@ class ArchiveService:
             )
         except Exception as e:
             logger.error(f"Errore durante l'incremento dei contatori Lizzy: {e}")
+
+    async def _maybe_promote_viewer(self, owner_username: str) -> None:
+        """
+        Promuove un viewer a user alla sua prima sottomissione genuinamente
+        nuova (punto aperto 2 del documento di design, deciso con Davide
+        08/09/2026). No-op silenzioso se l'utente non e' attualmente viewer
+        (auth_service.promote_viewer_to_user ritorna None in quel caso, senza
+        sollevare eccezioni -- vedi auth_service.py). Il chiamante
+        (archive_string) garantisce gia' l'esclusione di 'lizzy' e la
+        condizione is_new; qui ci si limita alla promozione + email.
+        Nessuna eccezione propagata: stesso principio di
+        _maybe_increment_lizzy_stats/_maybe_notify_alias_touch -- un errore
+        qui non deve mai far fallire l'archiviazione principale.
+        """
+        try:
+            promoted_user = self._auth_service.promote_viewer_to_user(owner_username)
+            if promoted_user is None:
+                return
+            email_service.send_promotion_notification({
+                "username": promoted_user.username,
+                "email": promoted_user.email,
+                "full_name": promoted_user.full_name,
+            })
+        except Exception as e:
+            logger.error(
+                f"Errore durante la promozione automatica viewer->user di {owner_username}: {e}"
+            )
 
     async def _maybe_notify_alias_touch(
         self, toucher_username: str, other_owners: List[str], alias_id: int

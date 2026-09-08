@@ -356,6 +356,60 @@ class AuthService:
         del user_dict["password_hash"]
         return User(**user_dict)
 
+    def promote_viewer_to_user(self, username: str) -> Optional[User]:
+        """
+        Promozione automatica viewer->user (punto aperto 2 del documento di
+        design, deciso con Davide 08/09/2026): innescata da
+        archive_service.archive_string() quando un viewer archivia sotto il
+        proprio account una stringa genuinamente nuova (is_new=True dal
+        database_service, mai un doppione esatto). L'esclusione esplicita
+        dell'account 'lizzy' (per non promuoverla come semplice effetto
+        collaterale delle sue consultazioni via API) e' responsabilita' del
+        chiamante in archive_service.py, non di questo metodo.
+
+        No-op silenzioso (ritorna None, nessuna eccezione) se l'utente non
+        esiste o non ha attualmente ruolo viewer -- mai toccare/declassare
+        altri ruoli, e mai sollevare un errore che potrebbe far fallire
+        l'archiviazione in background che lo chiama.
+        """
+        users = self._load_users()
+        if username not in users:
+            return None
+        if users[username]["role"] != UserRole.VIEWER.value:
+            return None
+
+        users[username]["role"] = UserRole.USER.value
+        # Consumato una tantum da auth_api.py (login/me) -- vedi
+        # consume_promotion_notice sotto. Il token JWT gia' emesso resta
+        # "viewer" finche' l'utente non rifa' login, da qui il banner che
+        # lo invita a farlo.
+        users[username]["pending_promotion_notice"] = True
+        users[username]["updated_at"] = datetime.now().isoformat()
+        self._save_users(users)
+
+        user_dict = users[username].copy()
+        del user_dict["password_hash"]
+        return User(**user_dict)
+
+    def consume_promotion_notice(self, username: str) -> bool:
+        """
+        Legge e cancella pending_promotion_notice in un solo colpo -- va
+        mostrato all'utente UNA VOLTA SOLA. Da chiamare SOLO dagli handler
+        di login e /api/auth/me in auth_api.py (che espongono l'oggetto
+        User completo al client), MAI da get_user/get_current_user (usati
+        internamente su ogni richiesta autenticata) -- altrimenti il flag
+        verrebbe consumato prima che il frontend abbia mai la possibilita'
+        di vederlo.
+        """
+        users = self._load_users()
+        if username not in users:
+            return False
+        was_pending = bool(users[username].get("pending_promotion_notice", False))
+        if was_pending:
+            users[username]["pending_promotion_notice"] = False
+            self._save_users(users)
+        return was_pending
+
     def deactivate_user(self, username: str) -> User:
         """Deactivate user (Super Admin only)"""
         users = self._load_users()
