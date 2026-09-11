@@ -7,7 +7,7 @@
     {
       "position": 1,
       "name": "ringing scheme",
-      "canonical_name": null,
+      "canonical_name": "ring_scheme",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -338,7 +338,7 @@
       },
       "description": "Ringing schemes are here defined as centres issuing rings with alphanumeric ring number with specific address",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Code identifying the ringing scheme (issuing centre) responsible for the ring.",
       "evolution_notes": [
         "Field added manually on 2026-04-03T17:58:04.548268"
       ],
@@ -350,7 +350,7 @@
     {
       "position": 2,
       "name": "primary identification method",
-      "canonical_name": null,
+      "canonical_name": "primary_identification_method",
       "data_type": "alphanumeric",
       "length": 2,
       "valid_values": [
@@ -383,7 +383,7 @@
       },
       "description": "Is to denote the primary method used to identify a bird",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Primary method used to identify the bird (e.g. metal ring, colour ring, other mark).",
       "evolution_notes": [
         "Field added manually on 2026-04-03T18:03:35.776381",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:00:21.895581"
@@ -396,14 +396,14 @@
     {
       "position": 3,
       "name": "identification number",
-      "canonical_name": null,
+      "canonical_name": "ring_identification_number",
       "data_type": "alphanumeric",
       "length": 10,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "A sequence of up to ten alphanumeric characters identifying the ring. Where the ring number has fewer than ten characters, the field is padded with dots (always inserted to the left of the rightmost row of digits). Unknown parts of the number (e.g. worn ring) are coded as '-'. If no metal ring is present, a unique scheme-issued identifier (recommended prefix 'NMR' + 7 digits) is used instead. | Sequenza di massimo dieci caratteri alfanumerici che identifica l'anello. Se il numero ha meno di dieci caratteri, il campo viene riempito con punti (sempre inseriti a sinistra della sequenza numerica più a destra). Le parti sconosciute del numero (es. anello consumato) si codificano con '-'. Se non è presente un anello metallico, si usa un identificativo univoco assegnato dallo schema (prefisso consigliato 'NMR' + 7 cifre).",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "The ring number identifying this individual bird, up to ten alphanumeric characters.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:11:52.388996"
       ],
@@ -415,7 +415,7 @@
     {
       "position": 4,
       "name": "verification of the metal ring",
-      "canonical_name": null,
+      "canonical_name": "metal_ring_verification",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -430,7 +430,7 @@
       },
       "description": "Ring verification may be by the ring being sent or a photograph, photocopy, rubbing or carbon copy being available",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the metal ring was verified by the scheme.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:16:18.805040",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -443,7 +443,7 @@
     {
       "position": 5,
       "name": "metal ring information",
-      "canonical_name": null,
+      "canonical_name": "metal_ring_information",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -470,7 +470,7 @@
       },
       "description": "Informations about metal ring",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Additional information about the metal ring.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:18:47.142990",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -483,7 +483,7 @@
     {
       "position": 6,
       "name": "other marks information",
-      "canonical_name": null,
+      "canonical_name": "other_marks_information",
       "data_type": "string",
       "length": 2,
       "valid_values": [
@@ -522,7 +522,7 @@
       },
       "description": "This gives information about any other marks associated with the bird",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Information about marks other than the conventional metal ring.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:20:54.068617",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -535,14 +535,14 @@
     {
       "position": 7,
       "name": "species mentioned",
-      "canonical_name": null,
+      "canonical_name": "species_reported",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Five-digit EURING species code as reported by the person who handled the bird, whether or not correctly identified. Use 00000 for 'unknown bird', or a group code ending in 9 (e.g. 'gull', 'duck') if only the group is known. The correct species is given in 'species concluded'. | Codice EURING a cinque cifre della specie così come riportata da chi ha maneggiato l'uccello, indipendentemente dal fatto che l'identificazione sia corretta. Si usa 00000 per 'uccello sconosciuto', o un codice di gruppo che termina in 9 (es. 'gabbiano', 'anatra') se è nota solo la famiglia/gruppo. La specie corretta è indicata nel campo 'species concluded'.",
       "semantic_domain": "species",
-      "semantic_meaning": null,
+      "semantic_meaning": "Species as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:28:23.578216"
       ],
@@ -554,14 +554,14 @@
     {
       "position": 8,
       "name": "species concluded",
-      "canonical_name": null,
+      "canonical_name": "species_concluded",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Five-digit EURING species code as concluded/confirmed by the ringing scheme, coded the same way as 'species mentioned'. Confirms whether the species reported by the finder is correct; should be the same across all records of a given bird. | Codice EURING a cinque cifre della specie come concluso/confermato dallo schema di inanellamento, codificato come 'species mentioned'. Conferma se la specie riportata dal segnalatore è corretta; dovrebbe essere identico in tutti i record di uno stesso uccello.",
       "semantic_domain": "species",
-      "semantic_meaning": null,
+      "semantic_meaning": "Species as concluded/confirmed by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:29:13.631425",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-04-17T17:29:59.064Z"
@@ -574,7 +574,7 @@
     {
       "position": 9,
       "name": "manipulated",
-      "canonical_name": null,
+      "canonical_name": "manipulated",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -605,7 +605,7 @@
       },
       "description": "The options are presented in order with the most important first",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether/how the bird was manipulated (e.g. moved, held in captivity) before release.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:42:36.101685"
       ],
@@ -617,7 +617,7 @@
     {
       "position": 10,
       "name": "moved before the encounter",
-      "canonical_name": null,
+      "canonical_name": "moved_before_encounter",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -636,7 +636,7 @@
       },
       "description": "The movement indicated is that which has happened before the encounter",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the bird was moved before the ringing/recovery encounter.",
       "evolution_notes": [
         "Field added manually on 2026-04-17T19:48:07.864980"
       ],
@@ -648,7 +648,7 @@
     {
       "position": 11,
       "name": "catching method",
-      "canonical_name": null,
+      "canonical_name": "catching_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -697,7 +697,7 @@
       },
       "description": "Catching method typology",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to catch the bird.",
       "evolution_notes": [
         "Field added manually on 2026-04-29T19:54:44.122339"
       ],
@@ -709,7 +709,7 @@
     {
       "position": 12,
       "name": "catching lures",
-      "canonical_name": null,
+      "canonical_name": "catching_lures",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -742,7 +742,7 @@
       },
       "description": "Catching lures used",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Lures used to catch the bird.",
       "evolution_notes": [
         "Field added manually on 2026-04-29T19:55:26.800039",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T16:55:28.112698"
@@ -755,7 +755,7 @@
     {
       "position": 13,
       "name": "sex mentioned",
-      "canonical_name": null,
+      "canonical_name": "sex_reported",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -770,7 +770,7 @@
       },
       "description": "Sex as mentioned by the person who handled the bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Sex as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-04-29T19:56:38.895765",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -783,7 +783,7 @@
     {
       "position": 14,
       "name": "sex concluded",
-      "canonical_name": null,
+      "canonical_name": "sex_concluded",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -798,7 +798,7 @@
       },
       "description": "Sex as concluded by the Scheme",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Sex as concluded by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-04-29T19:57:24.033183",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -811,7 +811,7 @@
     {
       "position": 15,
       "name": "age mentioned",
-      "canonical_name": null,
+      "canonical_name": "age_reported",
       "data_type": "alphanumeric",
       "length": 1,
       "valid_values": [
@@ -856,7 +856,7 @@
       },
       "description": "Age as mentioned by the person who handled the bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:34:31.497774",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -869,7 +869,7 @@
     {
       "position": 16,
       "name": "age concluded",
-      "canonical_name": null,
+      "canonical_name": "age_concluded",
       "data_type": "alphanumeric",
       "length": 1,
       "valid_values": [
@@ -914,7 +914,7 @@
       },
       "description": "Age as concluded by the Scheme",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age as concluded by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:35:55.339193",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -927,7 +927,7 @@
     {
       "position": 17,
       "name": "status",
-      "canonical_name": null,
+      "canonical_name": "status",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -958,7 +958,7 @@
       },
       "description": "Status of full grown bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Status of the full-grown bird (e.g. free-flying, in captivity).",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:36:45.659921"
       ],
@@ -970,14 +970,14 @@
     {
       "position": 18,
       "name": "brood size",
-      "canonical_name": null,
+      "canonical_name": "brood_size",
       "data_type": "integer",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Only for nestling records, two digits. '--' if the bird is not a nestling. For a brood from one female: 00 = unknown/not coded, 01-12+ = number of chicks in the nest. For a brood from more than one female, add 50 to the chick count (99 = unknown for multi-female broods). | Solo per record di nidiacei, due cifre. '--' se l'uccello non è un nidiaceo. Per una covata di una sola femmina: 00 = sconosciuto/non codificato, 01-12+ = numero di pulcini nel nido. Per una covata di più femmine, si aggiunge 50 al numero di pulcini (99 = sconosciuto per covate multi-femmina).",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Number of nestlings in the brood, for nestling records only.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:37:52.534689",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-04T17:38:54.473Z"
@@ -995,14 +995,14 @@
     {
       "position": 19,
       "name": "pullus age",
-      "canonical_name": null,
+      "canonical_name": "pullus_age",
       "data_type": "integer",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Age in days of a pullus (nestling), two digits: '--' if not a pullus, 99 = age not recorded, 00 = 0 days, 01 = 1 day, etc. See 'accuracy of pullus age' for the associated precision. | Età in giorni di un pullus (nidiaceo), due cifre: '--' se non è un pullus, 99 = età non registrata, 00 = 0 giorni, 01 = 1 giorno, ecc. Vedi 'accuracy of pullus age' per la precisione associata.",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age in days of a pullus (nestling).",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:42:28.775701",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-04T17:42:50.087Z"
@@ -1020,7 +1020,7 @@
     {
       "position": 20,
       "name": "accuracy of pullus age",
-      "canonical_name": null,
+      "canonical_name": "pullus_age_accuracy",
       "data_type": "alphanumeric",
       "length": 1,
       "valid_values": [
@@ -1053,7 +1053,7 @@
       },
       "description": "- bird is not a pullus 0 accurate to the day n accurate to within n days either side of day coded",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded pullus age, in days either side.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:43:52.856618",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-04T17:44:15.820Z",
@@ -1067,14 +1067,14 @@
     {
       "position": 21,
       "name": "date",
-      "canonical_name": null,
+      "canonical_name": "event_date",
       "data_type": "string",
       "length": 8,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The date in the format ddmmyyyy (eight digits, no omitted leading zeros), e.g. 5 September 2013 = 05092013. Always enter a best estimate of the real date; use 'accuracy of date' to record any uncertainty. | La data nel formato ddmmyyyy (otto cifre, senza omettere gli zeri iniziali), es. 5 settembre 2013 = 05092013. Inserire sempre la migliore stima della data reale; usare 'accuracy of date' per registrare eventuale incertezza.",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Date of the ringing/encounter event.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:45:38.119528"
       ],
@@ -1089,7 +1089,7 @@
     {
       "position": 22,
       "name": "accuracy of date",
-      "canonical_name": null,
+      "canonical_name": "date_accuracy",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -1118,7 +1118,7 @@
       },
       "description": "Date accurato to within...",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded date.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:46:47.342437",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-04T17:47:12.854Z"
@@ -1131,14 +1131,14 @@
     {
       "position": 23,
       "name": "time",
-      "canonical_name": null,
+      "canonical_name": "event_time",
       "data_type": "string",
       "length": 4,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Time of day in 24-hour local time, four characters (e.g. 0008, 1556). Use '----' if unknown/not recorded; if only the hour is known, code the minutes as '--' (e.g. 15--). | Ora del giorno in formato 24 ore, ora locale, quattro caratteri (es. 0008, 1556). Usare '----' se sconosciuta/non registrata; se è noto solo l'ora, codificare i minuti come '--' (es. 15--).",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Time of day of the event, 24-hour local time.",
       "evolution_notes": [
         "Field added manually on 2026-05-04T19:53:48.811828",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-04T17:54:20.733Z"
@@ -1151,7 +1151,7 @@
     {
       "position": 24,
       "name": "place code",
-      "canonical_name": null,
+      "canonical_name": "place_code",
       "data_type": "alphanumeric",
       "length": 4,
       "valid_values": [
@@ -5264,7 +5264,7 @@
       },
       "description": "The first pair of characters identifies the country (always alphabetic)\nThe second pair of characters identifies the sub-division of the country (either alphabetic or numeric)",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "EURING place code identifying the geographical area of the event.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T17:41:44.268891"
       ],
@@ -5276,14 +5276,14 @@
     {
       "position": 25,
       "name": "geographical co-ordinates",
-      "canonical_name": null,
+      "canonical_name": "geographical_coordinates_encoded",
       "data_type": "string",
       "length": 15,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Fifteen-digit field ABBCCDDWXXXYYZZ encoding latitude (A=hemisphere +/-, BB=degrees, CC=minutes, DD=seconds) and longitude (W=hemisphere +/-, XXX=degrees, YY=minutes, ZZ=seconds), datum WGS84. If latitude/longitude are submitted separately, code this field as 15 dots. | Campo di quindici cifre ABBCCDDWXXXYYZZ che codifica latitudine (A=emisfero +/-, BB=gradi, CC=minuti, DD=secondi) e longitudine (W=emisfero +/-, XXX=gradi, YY=minuti, ZZ=secondi), datum WGS84. Se latitudine/longitudine sono forniti nei campi separati, codificare questo campo con 15 punti.",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Encoded latitude/longitude of the event location (degrees/minutes/seconds format).",
       "evolution_notes": [
         "Field added manually on 2026-05-11T17:52:17.078995"
       ],
@@ -5295,7 +5295,7 @@
     {
       "position": 26,
       "name": "accuracy of co-ordinates",
-      "canonical_name": null,
+      "canonical_name": "coordinates_accuracy",
       "data_type": "alphanumeric",
       "length": 1,
       "valid_values": [
@@ -5352,7 +5352,7 @@
       },
       "description": "Numeric scale for old definitions, alphabetic scale for more precise definitions",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded geographical coordinates.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T17:57:06.648642"
       ],
@@ -5364,7 +5364,7 @@
     {
       "position": 27,
       "name": "condition",
-      "canonical_name": null,
+      "canonical_name": "condition",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -5392,8 +5392,8 @@
         "9": "Alive and probably healthy but not known if the bird was released or not. | Vivo e probabilmente in buona salute ma non noto se l'uccello sia stato rilasciato o meno."
       },
       "description": "Conditions of the bird when found",
-      "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_domain": "methodology",
+      "semantic_meaning": "Physical condition of the bird when found.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T17:58:33.535017",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -5406,7 +5406,7 @@
     {
       "position": 28,
       "name": "circumstances",
-      "canonical_name": null,
+      "canonical_name": "circumstances",
       "data_type": "string",
       "length": 2,
       "valid_values": [
@@ -5596,7 +5596,7 @@
       },
       "description": "Circumstances of the encounter. The first digit is referred to as the primary division",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Circumstances under which the bird was encountered.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:02:09.563183",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:17:12.509186"
@@ -5609,7 +5609,7 @@
     {
       "position": 29,
       "name": "circumstances presumed",
-      "canonical_name": null,
+      "canonical_name": "circumstances_presumed",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -5622,7 +5622,7 @@
       },
       "description": "Boolean: 0 no doubt about the circumstances\n               1 circumstances presumed",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the recorded circumstances are certain or presumed.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:09:17.842203",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:09:51.477516"
@@ -5635,7 +5635,7 @@
     {
       "position": 30,
       "name": "EURING code identifier",
-      "canonical_name": null,
+      "canonical_name": "euring_code_identifier",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -5658,7 +5658,7 @@
       },
       "description": "This field show the history of the record",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Identifies which EURING code version was used to encode this record.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:13:17.953664",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -5671,14 +5671,14 @@
     {
       "position": 31,
       "name": "distance",
-      "canonical_name": null,
+      "canonical_name": "distance",
       "data_type": "integer",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Distance in kilometres (5 digits, 00000-99999) between the current record and the first record (ringing data), calculated by computer using the loxodrome method. Not present on the ringing record itself, coded as '-----' (five hyphens). | Distanza in chilometri (5 cifre, 00000-99999) tra il record attuale e il primo record (dati di inanellamento), calcolata automaticamente con il metodo lossodromico. Assente nel record di inanellamento stesso, codificata come '-----' (cinque trattini).",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Distance in kilometres between this record and the first (ringing) record.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:15:28.922660"
       ],
@@ -5690,14 +5690,14 @@
     {
       "position": 32,
       "name": "direction",
-      "canonical_name": null,
+      "canonical_name": "direction",
       "data_type": "integer",
       "length": 3,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Direction in degrees (3 digits, 000-359) from the first record (ringing data) to the current record, calculated by computer using the loxodrome method. Not present on the ringing record itself, coded as '---' (three hyphens). | Direzione in gradi (3 cifre, 000-359) dal primo record (dati di inanellamento) al record attuale, calcolata automaticamente con il metodo lossodromico. Assente nel record di inanellamento stesso, codificata come '---' (tre trattini).",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Direction in degrees from the first (ringing) record to this record.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:17:02.689646"
       ],
@@ -5709,14 +5709,14 @@
     {
       "position": 33,
       "name": "elapsed time",
-      "canonical_name": null,
+      "canonical_name": "elapsed_time",
       "data_type": "integer",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Elapsed time in days (5 digits, 00000-99999) between the current record and the first record (ringing data), calculated by the scheme before submission. Not present on the ringing record itself, coded as '-----' (five hyphens). | Tempo trascorso in giorni (5 cifre, 00000-99999) tra il record attuale e il primo record (dati di inanellamento), calcolato dallo schema prima dell'invio. Assente nel record di inanellamento stesso, codificato come '-----' (cinque trattini).",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Elapsed time in days between this record and the first (ringing) record.",
       "evolution_notes": [
         "Field added manually on 2026-05-11T18:18:17.994134"
       ],
@@ -5728,14 +5728,14 @@
     {
       "position": 34,
       "name": "wing length",
-      "canonical_name": null,
+      "canonical_name": "wing_length",
       "data_type": "numeric",
       "length": 6,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Wing length in millimetres, maximum precision 0.5 mm (normally recorded to the nearest millimetre). This is the maximum chord measurement as described by Svensson (1992). | Lunghezza dell'ala in millimetri, precisione massima 0,5 mm (normalmente registrata all'unità di millimetro più vicina). È la misura della corda massima (maximum chord) descritta da Svensson (1992).",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Wing length measurement in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-13T17:22:02.598346"
       ],
@@ -5752,14 +5752,14 @@
     {
       "position": 35,
       "name": "third primary",
-      "canonical_name": null,
+      "canonical_name": "third_primary_length",
       "data_type": "numeric",
       "length": 6,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Length of the third primary feather in millimetres, maximum precision 0.5 mm. Measured with a 1.4 mm diameter vertical pin at the zero end of the ruler (Berthold & Friedrich 1979; English description in Bairlein 1995). | Lunghezza della terza penna primaria in millimetri, precisione massima 0,5 mm. Misurata con un perno verticale del diametro di 1,4 mm posto allo zero del righello (Berthold & Friedrich 1979; descrizione in inglese in Bairlein 1995).",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Length of the third primary feather in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-14T15:58:44.835569"
       ],
@@ -5776,7 +5776,7 @@
     {
       "position": 36,
       "name": "state of wing point",
-      "canonical_name": null,
+      "canonical_name": "wing_point_state",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -5797,7 +5797,7 @@
       },
       "description": "The condition of the longest primary feather",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Condition/state of the longest primary feather (wing point).",
       "evolution_notes": [
         "Field added manually on 2026-05-14T16:21:28.416499",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -5810,14 +5810,14 @@
     {
       "position": 37,
       "name": "mass",
-      "canonical_name": null,
+      "canonical_name": "body_mass",
       "data_type": "numeric",
       "length": 8,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Body mass in grams, measured to a maximum precision of 0.1 g. | Massa corporea in grammi, misurata con precisione massima di 0,1 g.",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Body mass of the bird in grams.",
       "evolution_notes": [
         "Field added manually on 2026-05-14T16:22:32.847827"
       ],
@@ -5834,7 +5834,7 @@
     {
       "position": 38,
       "name": "moult",
-      "canonical_name": null,
+      "canonical_name": "moult",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -5855,7 +5855,7 @@
       },
       "description": "A single letter code for main, clearly identifiable moult states",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Moult state, single-letter code.",
       "evolution_notes": [
         "Field added manually on 2026-05-14T16:23:22.567645",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -5868,7 +5868,7 @@
     {
       "position": 39,
       "name": "plumage code",
-      "canonical_name": null,
+      "canonical_name": "plumage_code",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -5909,7 +5909,7 @@
       },
       "description": "For extra information to enhance age code",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Additional plumage information used to refine the age code.",
       "evolution_notes": [
         "Field added manually on 2026-05-14T16:29:47.493537",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -5922,14 +5922,14 @@
     {
       "position": 40,
       "name": "hind claw",
-      "canonical_name": null,
+      "canonical_name": "hind_claw_length",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Length of the hind claw in millimetres, maximum precision 0.1 mm. For method details see Svensson (1992). | Lunghezza dell'unghia posteriore in millimetri, precisione massima 0,1 mm. Per i dettagli del metodo vedi Svensson (1992).",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Length of the hind claw in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:26:55.863919"
       ],
@@ -5946,14 +5946,14 @@
     {
       "position": 41,
       "name": "bill length",
-      "canonical_name": null,
+      "canonical_name": "bill_length",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Bill length in millimetres, maximum precision 0.1 mm (lengths over 100 mm normally given to the nearest millimetre). If recorded, the method must be coded in 'bill method'. | Lunghezza del becco in millimetri, precisione massima 0,1 mm (le lunghezze superiori a 100 mm si arrotondano normalmente al millimetro). Se registrata, il metodo deve essere indicato nel campo 'bill method'.",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Bill length measurement in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:28:00.402759"
       ],
@@ -5970,7 +5970,7 @@
     {
       "position": 42,
       "name": "bill method",
-      "canonical_name": null,
+      "canonical_name": "bill_length_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -5987,7 +5987,7 @@
       },
       "description": "This field is mandatory if the Bill Length is given",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to measure bill length.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:29:14.954936",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6000,14 +6000,14 @@
     {
       "position": 43,
       "name": "total head length",
-      "canonical_name": null,
+      "canonical_name": "total_head_length",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Total head length in millimetres, maximum precision 0.1 mm (lengths over 100 mm normally given to the nearest millimetre). For method details see the BTO Ringers' Manual. | Lunghezza totale della testa in millimetri, precisione massima 0,1 mm (le lunghezze superiori a 100 mm si arrotondano normalmente al millimetro). Per i dettagli del metodo vedi il BTO Ringers' Manual.",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Total head length measurement in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:30:18.230995"
       ],
@@ -6024,14 +6024,14 @@
     {
       "position": 44,
       "name": "tarsus",
-      "canonical_name": null,
+      "canonical_name": "tarsus_length",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Tarsus length in millimetres, maximum precision 0.1 mm (lengths over 100 mm normally given to the nearest millimetre). If recorded, the method must be coded in 'tarsus method'. | Lunghezza del tarso in millimetri, precisione massima 0,1 mm (le lunghezze superiori a 100 mm si arrotondano normalmente al millimetro). Se registrata, il metodo deve essere indicato nel campo 'tarsus method'.",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Tarsus length measurement in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:31:10.640567"
       ],
@@ -6048,7 +6048,7 @@
     {
       "position": 45,
       "name": "tarsus method",
-      "canonical_name": null,
+      "canonical_name": "tarsus_length_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6063,7 +6063,7 @@
       },
       "description": "This field is mandatory if the Tarsus is given",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to measure tarsus length.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:32:04.993154",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6076,14 +6076,14 @@
     {
       "position": 46,
       "name": "tail length",
-      "canonical_name": null,
+      "canonical_name": "tail_length",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Tail length in millimetres, maximum precision 0.1 mm (lengths over 100 mm normally given to the nearest millimetre). For method details see Svensson (1992). | Lunghezza della coda in millimetri, precisione massima 0,1 mm (le lunghezze superiori a 100 mm si arrotondano normalmente al millimetro). Per i dettagli del metodo vedi Svensson (1992).",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Tail length measurement in millimetres.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:32:52.713508"
       ],
@@ -6100,14 +6100,14 @@
     {
       "position": 47,
       "name": "tail difference",
-      "canonical_name": null,
+      "canonical_name": "tail_difference",
       "data_type": "numeric",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Difference in millimetres (max. precision 0.1 mm, normally to the nearest mm) between the longest and shortest tail feathers, measured along the tail axis with the tail closed; the sign is ignored. For method details see Svensson (1992). | Differenza in millimetri (precisione massima 0,1 mm, normalmente arrotondata al mm) tra la penna più lunga e quella più corta della coda, misurata lungo l'asse della coda a coda chiusa; il segno viene ignorato. Per i dettagli del metodo vedi Svensson (1992).",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Difference in millimetres between the longest and shortest tail feathers.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:34:21.372925"
       ],
@@ -6124,7 +6124,7 @@
     {
       "position": 48,
       "name": "fat score",
-      "canonical_name": null,
+      "canonical_name": "fat_score",
       "data_type": "integer",
       "length": 1,
       "valid_values": [
@@ -6151,7 +6151,7 @@
       },
       "description": "Codes are defined fot three nethods of assessing fat:\nB - Biometrics Working Group\nE - ESF system\nP - Operation Baltic",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Fat score of the bird, using one of the defined assessment methods.",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:36:25.506699",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6164,7 +6164,7 @@
     {
       "position": 49,
       "name": "fat score method",
-      "canonical_name": null,
+      "canonical_name": "fat_score_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6179,7 +6179,7 @@
       },
       "description": "One character code to indicate fat score method used (B, E, P)",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to assess the fat score (B, E or P).",
       "evolution_notes": [
         "Field added manually on 2026-05-15T18:37:28.145490",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6192,7 +6192,7 @@
     {
       "position": 50,
       "name": "pectoral muscle score",
-      "canonical_name": null,
+      "canonical_name": "pectoral_muscle_score",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6209,7 +6209,7 @@
       },
       "description": "A single numeric code to describe state of pectoral muscle",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Score describing the state of the pectoral muscle.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:49:01.615015",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6222,7 +6222,7 @@
     {
       "position": 51,
       "name": "brood patch",
-      "canonical_name": null,
+      "canonical_name": "brood_patch",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6245,7 +6245,7 @@
       },
       "description": "A single character to describe, in chronological order, the state of the brood patch in the breeding season",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "State of the brood patch during the breeding season.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:49:59.925206",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6258,14 +6258,14 @@
     {
       "position": 52,
       "name": "primary score",
-      "canonical_name": null,
+      "canonical_name": "primary_moult_score",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Sum of the (usually 10) primary moult scores, two digits (see 'primary moult'). May total 45 instead of 50 for species with a minute outermost primary (e.g. finches), which is ignored for 11-primaried birds. Scores of V or X count as zero. | Somma dei punteggi di muta delle (di solito 10) penne primarie, due cifre (vedi 'primary moult'). Può arrivare a 45 anziché 50 nelle specie con la primaria più esterna minuta (es. fringillidi), che viene ignorata negli uccelli con 11 primarie. I punteggi V o X contano come zero.",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Sum of the individual primary moult scores.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:51:50.461002"
       ],
@@ -6282,7 +6282,7 @@
     {
       "position": 53,
       "name": "primary moult",
-      "canonical_name": null,
+      "canonical_name": "primary_moult",
       "data_type": "string",
       "length": 10,
       "valid_values": [
@@ -6307,7 +6307,7 @@
       },
       "description": "Ten digits, each in the range 0-5. These digits are arranged from inner to outer primaries",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Moult state of each individual primary feather (ten digits).",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:53:31.700168",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6320,7 +6320,7 @@
     {
       "position": 54,
       "name": "old greater coverts",
-      "canonical_name": null,
+      "canonical_name": "old_greater_coverts",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6351,7 +6351,7 @@
       },
       "description": "The number of unmoulted greater coverts retained after post juvenile moult (normally only applicable for passerines)",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Number of unmoulted (old) greater coverts retained after post-juvenile moult.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:54:50.674622",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6364,7 +6364,7 @@
     {
       "position": 55,
       "name": "alula",
-      "canonical_name": null,
+      "canonical_name": "alula_moult_state",
       "data_type": "string",
       "length": 3,
       "valid_values": [
@@ -6379,7 +6379,7 @@
       },
       "description": "Three characters describing the moult state of the three alula feathers (or three outermost, if more than three), given in order from the smallest to the largest feather. See valid values for the codes used per character. | Tre caratteri che descrivono lo stato di muta delle tre penne dell'alula (o delle tre più esterne, se sono più di tre), indicati in ordine dalla penna più piccola alla più grande. Vedi i valori validi per i codici usati per ogni carattere.",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Moult state of the alula feathers.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:55:50.420019"
       ],
@@ -6391,7 +6391,7 @@
     {
       "position": 56,
       "name": "carpal covert",
-      "canonical_name": null,
+      "canonical_name": "carpal_covert_moult_state",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6404,7 +6404,7 @@
       },
       "description": "A single integer to describe state of the moult of the carpal covert",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Moult state of the carpal covert.",
       "evolution_notes": [
         "Field added manually on 2026-05-18T19:56:40.332603",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6417,7 +6417,7 @@
     {
       "position": 57,
       "name": "sexing method",
-      "canonical_name": null,
+      "canonical_name": "sexing_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [
@@ -6446,7 +6446,7 @@
       },
       "description": "this is to enable analysts to select data appropriately for analysis where sex is a factor",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to determine the sex of the bird.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:10:09.290671",
         "Descriptions updated from EURING Exchange Code 2020 v202 (EN+IT) on 2026-07-20T17:43:01.780454"
@@ -6459,14 +6459,14 @@
     {
       "position": 58,
       "name": "place name",
-      "canonical_name": null,
+      "canonical_name": "place_name",
       "data_type": "string",
       "length": 250,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Free-text name of the place of encounter, as given by the ringer/finder or amended by the scheme (250 characters max). Used for between-scheme recovery processing only; not stored in the EDB. Multiple levels are separated by semi-colons, widest level first (e.g. 'Paris; Les Halles'). The pipe character '|' must not be used. | Nome libero del luogo dell'incontro, fornito dall'inanellatore/segnalatore o modificato dallo schema (massimo 250 caratteri). Usato solo per l'elaborazione delle segnalazioni tra schemi; non è memorizzato nell'EDB. I livelli multipli sono separati da punto e virgola, dal più ampio al più specifico (es. 'Paris; Les Halles'). Non deve essere usato il carattere pipe '|'.",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Free-text name of the place of the encounter.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:11:59.418833",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-20T16:14:23.959Z"
@@ -6479,14 +6479,14 @@
     {
       "position": 59,
       "name": "remarks",
-      "canonical_name": null,
+      "canonical_name": "remarks",
       "data_type": "string",
       "length": 500,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Free-text field for any relevant remarks or details (500 characters max), used for between-scheme recovery processing only; not stored in the EDB. Can hold finder's details needed for processing (subject to data protection legislation) or colour-ring/unconventional mark details. Must not contain the pipe character '|'. | Campo di testo libero per eventuali osservazioni o dettagli rilevanti (massimo 500 caratteri), usato solo per l'elaborazione delle segnalazioni tra schemi; non è memorizzato nell'EDB. Può contenere i dati del segnalatore necessari all'elaborazione (nel rispetto della normativa sulla protezione dei dati) o dettagli su anelli colorati/marche non convenzionali. Non deve contenere il carattere pipe '|'.",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Free-text remarks about the encounter.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:14:03.950429"
       ],
@@ -6498,14 +6498,14 @@
     {
       "position": 60,
       "name": "reference",
-      "canonical_name": null,
+      "canonical_name": "scheme_reference",
       "data_type": "string",
       "length": 250,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The scheme's own unique reference for this bird encounter (250 characters max), used to identify the encounter even if other details are later corrected. Once set, it must never be altered. Format: the scheme's 3-letter code followed by the scheme's own identifying code (e.g. FRP123456789). | Riferimento univoco assegnato dallo schema a questa segnalazione (massimo 250 caratteri), usato per identificarla anche se altri dettagli del record vengono successivamente corretti. Una volta impostato, non deve mai essere modificato. Formato: codice a 3 lettere dello schema seguito dal codice identificativo proprio dello schema (es. FRP123456789).",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "The ringing scheme's own unique reference for this encounter.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:17:25.067145",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-20T16:17:38.404Z"
@@ -6518,14 +6518,14 @@
     {
       "position": 61,
       "name": "latitude",
-      "canonical_name": null,
+      "canonical_name": "latitude_decimal",
       "data_type": "float",
       "length": 7,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Latitude in degrees with decimal points, up to four decimal places (typically no more than three). Use a full stop as decimal separator, not a comma. Positive in the northern hemisphere, negative in the southern. May be left empty if co-ordinates are given in 'geographical co-ordinates'. | Latitudine in gradi con punto decimale, fino a quattro cifre decimali (tipicamente non più di tre). Usare il punto come separatore decimale, non la virgola. Positiva nell'emisfero nord, negativa nell'emisfero sud. Può essere lasciata vuota se le coordinate sono fornite nel campo 'geographical co-ordinates'.",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Latitude of the event location, in decimal degrees.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:19:45.789171"
       ],
@@ -6542,14 +6542,14 @@
     {
       "position": 62,
       "name": "longitude",
-      "canonical_name": null,
+      "canonical_name": "longitude_decimal",
       "data_type": "string",
       "length": 8,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Longitude in the same format as latitude (degrees with decimal points, full stop as separator). Negative west of the Greenwich meridian, positive to the east. | Longitudine nello stesso formato della latitudine (gradi con punto decimale, punto come separatore). Negativa a ovest del meridiano di Greenwich, positiva a est.",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Longitude of the event location, in decimal degrees.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:20:42.615423"
       ],
@@ -6566,7 +6566,7 @@
     {
       "position": 63,
       "name": "current place code",
-      "canonical_name": null,
+      "canonical_name": "current_place_code",
       "data_type": "string",
       "length": 4,
       "valid_values": [
@@ -10679,7 +10679,7 @@
       },
       "description": "When there are changes such that the Place code becomes obsolete this filed should be used to hold the current value",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Current place code, used when the original place code becomes obsolete.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:22:18.656400"
       ],
@@ -10691,14 +10691,14 @@
     {
       "position": 64,
       "name": "more other marks",
-      "canonical_name": null,
+      "canonical_name": "other_marks_extra",
       "data_type": "string",
       "length": 50,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Free-text field (50 characters max, no comma) used only when more than one type of other mark applies (i.e. 'other marks information' holds MM, OM, OP or OT). Holds the additional mark codes in alphabetical order, pairs of letters separated by a space (not a comma), e.g. 'BC ED LB'. | Campo di testo libero (massimo 50 caratteri, senza virgola) usato solo quando si applica più di un tipo di marca diversa dall'anello metallico (cioè quando 'other marks information' contiene MM, OM, OP o OT). Contiene i codici delle marche aggiuntive in ordine alfabetico, con le coppie di lettere separate da uno spazio (non da una virgola), es. 'BC ED LB'.",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Free-text field used when more than one type of other mark applies.",
       "evolution_notes": [
         "Field added manually on 2026-05-20T18:26:17.468722"
       ],

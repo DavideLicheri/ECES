@@ -7,14 +7,14 @@
     {
       "position": 151,
       "name": "biometrics",
-      "canonical_name": null,
+      "canonical_name": "biometrics_legacy_blob",
       "data_type": "string",
       "length": 50,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Reserved columns: wing length, primary length, weight, tarsus, fat, skull ossification, moult, tail length, tail difference, bill length, bill depth, head and bill, toe, claws, etc.",
       "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Unstructured reserved block historically holding biometric measurements (wing length, primary length, weight, tarsus, fat score, skull ossification, moult, tail length, tail difference, bill length, bill depth, head and bill, toe, claws); not split into individual EURING2020 biometric fields, so it has no single corresponding 2020 field.",
       "evolution_notes": [
         "Field added manually on 2026-03-20T19:39:33.930204"
       ]
@@ -22,14 +22,14 @@
     {
       "position": 90,
       "name": "elapsed time",
-      "canonical_name": null,
+      "canonical_name": "elapsed_time",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "calculated as the elapsed time between the current record and the first record (= ringing data). The elapsed time is given in days (00000-99999)",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Elapsed time in days between this record and the first (ringing) record.",
       "evolution_notes": [
         "Field added manually on 2026-03-20T19:41:45.269189"
       ]
@@ -37,14 +37,14 @@
     {
       "position": 87,
       "name": "direction",
-      "canonical_name": null,
+      "canonical_name": "direction",
       "data_type": "string",
       "length": 3,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Calculated by computer as the direction between the current record and the first record (= ringing data). the direction is given in degrees (000-359)",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Direction in degrees from the first (ringing) record to this record.",
       "evolution_notes": [
         "Field added manually on 2026-03-20T19:43:18.666775"
       ]
@@ -52,14 +52,14 @@
     {
       "position": 82,
       "name": "distance",
-      "canonical_name": null,
+      "canonical_name": "distance",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Calculated by computer as the distance between the current record and the first record (= ringing data). The distance is given in kilometres (00000-99999)",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Distance in kilometres between this record and the first (ringing) record.",
       "evolution_notes": [
         "Field added manually on 2026-03-20T19:48:23.551962"
       ]
@@ -67,14 +67,14 @@
     {
       "position": 81,
       "name": "EURING code identifier",
-      "canonical_name": null,
+      "canonical_name": "euring_code_identifier",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Identifies which version of coding (1966, 1979 or 2000) is used",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Identifies which EURING code version was used to encode this record.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T18:58:27.194072"
       ]
@@ -82,14 +82,14 @@
     {
       "position": 80,
       "name": "circumstances presumed",
-      "canonical_name": null,
+      "canonical_name": "circumstances_presumed",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Can be used in combination with the entries in the filed \"circumstances\" to modify the circumstances",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the recorded circumstances are certain or presumed.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T18:59:48.381577"
       ]
@@ -97,14 +97,14 @@
     {
       "position": 78,
       "name": "circumstances",
-      "canonical_name": null,
+      "canonical_name": "circumstances",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Circostanze dell'evento di cattura",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Circumstances under which the bird was encountered.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:01:27.271325"
       ]
@@ -112,14 +112,14 @@
     {
       "position": 77,
       "name": "condition",
-      "canonical_name": null,
+      "canonical_name": "condition",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Conditions of the bird when found",
-      "semantic_domain": "biometrics",
-      "semantic_meaning": null,
+      "semantic_domain": "methodology",
+      "semantic_meaning": "Physical condition of the bird when found.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:02:09.614536",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-05-11T15:59:29.593Z"
@@ -128,14 +128,14 @@
     {
       "position": 76,
       "name": "accuracy of coordinates",
-      "canonical_name": null,
+      "canonical_name": "coordinates_accuracy",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The accuracy of coordinates is given in kilometers",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded geographical coordinates.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:03:31.017957"
       ]
@@ -143,14 +143,14 @@
     {
       "position": 61,
       "name": "geographical coordinates",
-      "canonical_name": null,
+      "canonical_name": "geographical_coordinates_encoded",
       "data_type": "string",
       "length": 15,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Latitude: North and South coordinates are given in quadrant, degrees, minutes, seconds\nLongitude: East and West coordinates are given in quadrant, degrees, minutes, seconds",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "Encoded latitude/longitude of the event location (degrees/minutes/seconds format).",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:06:12.293638"
       ]
@@ -158,14 +158,14 @@
     {
       "position": 57,
       "name": "place code",
-      "canonical_name": null,
+      "canonical_name": "place_code",
       "data_type": "string",
       "length": 4,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The purpose of the Place Code is solely to identify particular geographical areas in terms of current administrative regions.\nFIRST PAIR of characters identifying the country\nSECOND PAIR of characters identifying the sub-division of the country",
       "semantic_domain": "spatial",
-      "semantic_meaning": null,
+      "semantic_meaning": "EURING place code identifying the geographical area of the event.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:10:01.114103"
       ]
@@ -173,14 +173,14 @@
     {
       "position": 53,
       "name": "time",
-      "canonical_name": null,
+      "canonical_name": "event_time",
       "data_type": "string",
       "length": 4,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The actual time of the day in hours and minutes, according to a 24 hour clock in local time",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Time of day of the event, 24-hour local time.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:13:30.729875"
       ]
@@ -188,14 +188,14 @@
     {
       "position": 52,
       "name": "accuracy of date",
-      "canonical_name": null,
+      "canonical_name": "date_accuracy",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Date accurato to within...",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded date.",
       "evolution_notes": [
         "Field added manually on 2026-03-23T19:14:50.525036"
       ]
@@ -203,14 +203,14 @@
     {
       "position": 44,
       "name": "date",
-      "canonical_name": null,
+      "canonical_name": "event_date",
       "data_type": "string",
       "length": 8,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The date in days, months and years to be coded",
       "semantic_domain": "temporal",
-      "semantic_meaning": null,
+      "semantic_meaning": "Date of the ringing/encounter event.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T17:39:29.030254"
       ]
@@ -218,14 +218,14 @@
     {
       "position": 43,
       "name": "accuracy of pullus age",
-      "canonical_name": null,
+      "canonical_name": "pullus_age_accuracy",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "- bird is not a pullus\n0 accurate to the day\nn accurate to within n days either side of day coded",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Accuracy of the recorded pullus age, in days either side.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T17:41:43.550743"
       ]
@@ -233,14 +233,14 @@
     {
       "position": 41,
       "name": "pullus age",
-      "canonical_name": null,
+      "canonical_name": "pullus_age",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "-- bird is not a pullus\n99 pullus age not recorded\n00 pullus age 0 days\nnn pullus age n days",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age in days of a pullus (nestling).",
       "evolution_notes": [
         "Field added manually on 2026-03-31T17:57:32.961099"
       ]
@@ -248,14 +248,14 @@
     {
       "position": 39,
       "name": "broodsize",
-      "canonical_name": null,
+      "canonical_name": "brood_size",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "-- bird is not a nestling\n00 unknown, not coded\nnn n chicks in the nest",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Number of nestlings in the brood, for nestling records only.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:17:57.646351"
       ]
@@ -263,14 +263,14 @@
     {
       "position": 38,
       "name": "status",
-      "canonical_name": null,
+      "canonical_name": "status",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Status of full grown bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Status of the full-grown bird (e.g. free-flying, in captivity).",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:18:43.358888"
       ]
@@ -278,14 +278,14 @@
     {
       "position": 36,
       "name": "age reported",
-      "canonical_name": null,
+      "canonical_name": "age_reported",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Age as mentioned by the person who handled the bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:19:49.579709"
       ]
@@ -293,14 +293,14 @@
     {
       "position": 37,
       "name": "age concluded",
-      "canonical_name": null,
+      "canonical_name": "age_concluded",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Age as concluded by the Scheme",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Age as concluded by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:20:16.381923"
       ]
@@ -308,14 +308,14 @@
     {
       "position": 35,
       "name": "sex concluded",
-      "canonical_name": null,
+      "canonical_name": "sex_concluded",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Sex as concluded by the Scheme",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Sex as concluded by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:20:44.779801"
       ]
@@ -323,14 +323,14 @@
     {
       "position": 34,
       "name": "sex reported",
-      "canonical_name": null,
+      "canonical_name": "sex_reported",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Sex as mentioned by the person who handled the bird",
       "semantic_domain": "demographics",
-      "semantic_meaning": null,
+      "semantic_meaning": "Sex as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:21:21.486565"
       ]
@@ -338,14 +338,14 @@
     {
       "position": 33,
       "name": "catching lures",
-      "canonical_name": null,
+      "canonical_name": "catching_lures",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Catching lures used",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Lures used to catch the bird.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:22:57.701930"
       ]
@@ -353,14 +353,14 @@
     {
       "position": 32,
       "name": "catching method",
-      "canonical_name": null,
+      "canonical_name": "catching_method",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Catching method typology",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Method used to catch the bird.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:23:25.487268"
       ]
@@ -368,14 +368,14 @@
     {
       "position": 31,
       "name": "moved before",
-      "canonical_name": null,
+      "canonical_name": "moved_before_encounter",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Moved before the capture / recapture / recovery",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the bird was moved before the ringing/recovery encounter.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:24:21.251985"
       ]
@@ -383,14 +383,14 @@
     {
       "position": 30,
       "name": "manipulated",
-      "canonical_name": null,
+      "canonical_name": "manipulated",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "The options are presented in the order (the most important first)",
       "semantic_domain": "methodology",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether/how the bird was manipulated (e.g. moved, held in captivity) before release.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:28:31.605176"
       ]
@@ -398,14 +398,14 @@
     {
       "position": 25,
       "name": "species concluded",
-      "canonical_name": null,
+      "canonical_name": "species_concluded",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Species as concluded by the Scheme.\nThe importance of this filed is to confirm if the Scheme considers the species, given by the person who handled the bird, is correct or not",
       "semantic_domain": "species",
-      "semantic_meaning": null,
+      "semantic_meaning": "Species as concluded/confirmed by the ringing scheme.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:31:58.213006",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-04-17T17:29:33.201Z"
@@ -414,14 +414,14 @@
     {
       "position": 20,
       "name": "species reported",
-      "canonical_name": null,
+      "canonical_name": "species_reported",
       "data_type": "string",
       "length": 5,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Species as reported by the person who handled the bird.",
       "semantic_domain": "species",
-      "semantic_meaning": null,
+      "semantic_meaning": "Species as reported by the person who handled the bird.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:32:40.364337"
       ]
@@ -429,14 +429,14 @@
     {
       "position": 18,
       "name": "other marks information",
-      "canonical_name": null,
+      "canonical_name": "other_marks_information",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Informations about marks that aren't a conventional metal ring)",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Information about marks other than the conventional metal ring.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:34:00.035090"
       ]
@@ -444,14 +444,14 @@
     {
       "position": 17,
       "name": "metal ring information",
-      "canonical_name": null,
+      "canonical_name": "metal_ring_information",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Informations about metal ring",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Additional information about the metal ring.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:34:29.963892"
       ]
@@ -459,14 +459,14 @@
     {
       "position": 16,
       "name": "verification of the metal ring",
-      "canonical_name": null,
+      "canonical_name": "metal_ring_verification",
       "data_type": "string",
       "length": 1,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "0 ring NOT verified by scheme\n1 ring verified by scheme",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Whether the metal ring was verified by the scheme.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:40:26.661486",
         "Manual edit: Edit via PositionalMatrixEditor at 2026-03-31T16:40:42.117Z"
@@ -475,14 +475,14 @@
     {
       "position": 6,
       "name": "identification number",
-      "canonical_name": null,
+      "canonical_name": "ring_identification_number",
       "data_type": "string",
       "length": 10,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Ring number, consisting of up to ten figures and/or letters, to be coded directly into the ten columns",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "The ring number identifying this individual bird, up to ten alphanumeric characters.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:42:11.089238"
       ]
@@ -490,14 +490,14 @@
     {
       "position": 4,
       "name": "primary identification methos",
-      "canonical_name": null,
+      "canonical_name": "primary_identification_method",
       "data_type": "string",
       "length": 2,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "This field is to denote the primary method used to identify a bird",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Primary method used to identify the bird (e.g. metal ring, colour ring, other mark).",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:48:48.968101"
       ]
@@ -505,14 +505,14 @@
     {
       "position": 1,
       "name": "ringing scheme",
-      "canonical_name": null,
+      "canonical_name": "ring_scheme",
       "data_type": "string",
       "length": 3,
       "valid_values": [],
       "valid_values_descriptions": null,
       "description": "Ringing schemes are here defined as centres issuing rings",
       "semantic_domain": "identification_marking",
-      "semantic_meaning": null,
+      "semantic_meaning": "Code identifying the ringing scheme (issuing centre) responsible for the ring.",
       "evolution_notes": [
         "Field added manually on 2026-03-31T18:50:23.331708"
       ]
