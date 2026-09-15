@@ -91,3 +91,8 @@ backend/data/usage/
 HANDOFF.md
 design_archivio_faccette.md
 frontend-build/
+
+# Manuale di riferimento NISORIA2000 (19MB, nessun riferimento nel codice,
+# citato solo nei commenti di epe_archivio_status_2020_fix.sql) -- tenuto
+# fuori da git deliberatamente per non appesantire la history (15/09/2026)
+backend/data/documentation/manuale_nisoria2000.pdf
