@@ -9,7 +9,7 @@
       "name": "ringing scheme",
       "canonical_name": "ring_scheme",
       "data_type": "string",
-      "length": 1,
+      "length": 3,
       "valid_values": [
         "AAC",
         "ABT",
