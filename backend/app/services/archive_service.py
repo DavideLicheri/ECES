@@ -31,7 +31,7 @@ from .conversion_service import EuringConversionService
 from .skos_manager import SKOSManagerImpl
 from .parsers.euring_2020_position_parser import Euring2020PositionParser
 from .database_service import database_service
-from .phenology_utils import parse_euring_date_to_pentad
+from .phenology_utils import parse_euring_date_to_pentad, parse_euring_date_to_date
 from .email_service import email_service
 from ..auth.auth_service import AuthService
 
@@ -186,6 +186,13 @@ class ArchiveService:
         presenti e validi (specie, luogo, schema, data parsabile in pentade).
         Nessuna eccezione propagata: un errore qui non deve mai far fallire
         l'archiviazione principale (stesso principio di archive_string).
+
+        Bootstrap Lizzy (15/09/2026): prima di incrementare, controlla se
+        questo stesso evento storico (schema+numero anello+data) e' gia'
+        presente in lizzy_bootstrap_fingerprints (popolata da
+        backend/scripts/bootstrap_lizzy_stats.py dall'archivio storico EPE)
+        -- se si, l'evento e' gia' stato contato e l'incremento organico
+        viene saltato, per evitare un doppio conteggio dello stesso evento.
         """
         try:
             owner = self._auth_service.get_user(owner_username)
@@ -205,6 +212,7 @@ class ArchiveService:
             # sarebbe mai popolato altrimenti.
             place_code = parsed_fields.get("current place code") or parsed_fields.get("place code")
             ringing_scheme = parsed_fields.get("ringing scheme")
+            ring_number = parsed_fields.get("identification number")
             pentad = parse_euring_date_to_pentad(parsed_fields.get("date"))
 
             if not (species_code and place_code and ringing_scheme and pentad):
@@ -213,6 +221,21 @@ class ArchiveService:
                     "mancanti o data non parsabile."
                 )
                 return
+
+            if ringing_scheme and ring_number:
+                event_date = parse_euring_date_to_date(parsed_fields.get("date"))
+                if event_date:
+                    already_in_bootstrap = await database_service.is_in_lizzy_bootstrap(
+                        ringing_scheme=ringing_scheme.strip(),
+                        ring_number=ring_number.strip(),
+                        event_date=event_date,
+                    )
+                    if already_in_bootstrap:
+                        logger.info(
+                            "Contatore Lizzy saltato: evento gia' presente nel "
+                            "bootstrap storico (stesso schema+anello+data)."
+                        )
+                        return
 
             await database_service.increment_lizzy_stats(
                 species_code=species_code.strip(),

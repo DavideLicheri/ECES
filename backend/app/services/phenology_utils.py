@@ -13,6 +13,7 @@ anno su anno -- ma le pentadi NON sono allineate ai confini dei mesi (28 non
 e' divisibile per 5), caratteristica normale del sistema a pentadi, non un
 bug.
 """
+from datetime import date
 from typing import Optional
 
 # Giorni per mese, calendario di riferimento NON bisestile (fisso, sempre 28
@@ -63,6 +64,34 @@ def parse_euring_date_to_pentad(date_str: Optional[str]) -> Optional[int]:
 
     try:
         return date_to_pentad(day, month)
+    except ValueError:
+        return None
+
+
+def parse_euring_date_to_date(date_str: Optional[str]) -> Optional[date]:
+    """
+    Estrae la data completa (giorno/mese/anno) da un campo 'date' EURING in
+    formato DDMMYYYY (8 cifre) -- usata per la chiave dell'impronta
+    anti-doppio-conteggio (lizzy_bootstrap_fingerprints, migrazione 008),
+    NON per la pentade: qui l'anno conta e il 29 febbraio resta 29 febbraio
+    (nessuna fusione col 28, a differenza di parse_euring_date_to_pentad,
+    che e' solo per il bucketing fenologico). Ritorna None (non solleva
+    eccezioni) se il campo e' assente, vuoto, non ha 8 cifre, o la data non
+    e' valida -- stessa convenzione di non-blocco usata altrove.
+    """
+    if not date_str:
+        return None
+
+    date_str = date_str.strip()
+    if len(date_str) != 8 or not date_str.isdigit():
+        return None
+
+    day = int(date_str[0:2])
+    month = int(date_str[2:4])
+    year = int(date_str[4:8])
+
+    try:
+        return date(year, month, day)
     except ValueError:
         return None
 

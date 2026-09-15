@@ -1048,6 +1048,14 @@ class DatabaseService:
         questa tabella -- solo il codice applicativo chiamante (vedi
         archive_service._maybe_increment_lizzy_stats) e' responsabile di
         verificare il consenso PRIMA di chiamare questo metodo.
+        Bugfix 15/09/2026: la migrazione 007 ha aggiunto "source" alla PK
+        (per distinguere le righe del bootstrap storico da quelle organiche,
+        vedi migrazione 008 / bootstrap_lizzy_stats.py) -- questo metodo scrive
+        sempre source='eces_organic' (e' l'unico punto che incrementa dati
+        organici in tempo reale) e il target ON CONFLICT deve includerla,
+        altrimenti l'INSERT fallisce con "no unique or exclusion constraint
+        matching ON CONFLICT specification" dato che la vecchia PK a 4
+        colonne non esiste piu'.
         """
         if not self.pool or not self.is_enabled:
             return
@@ -1057,9 +1065,9 @@ class DatabaseService:
                 await conn.execute(
                     """
                     INSERT INTO lizzy_species_place_pentad_stats
-                        (species_code, place_code, pentad, ringing_scheme, occurrence_count)
-                    VALUES ($1, $2, $3, $4, 1)
-                    ON CONFLICT (species_code, place_code, pentad, ringing_scheme)
+                        (species_code, place_code, pentad, ringing_scheme, occurrence_count, source)
+                    VALUES ($1, $2, $3, $4, 1, 'eces_organic')
+                    ON CONFLICT (species_code, place_code, pentad, ringing_scheme, source)
                     DO UPDATE SET occurrence_count = lizzy_species_place_pentad_stats.occurrence_count + 1
                     """,
                     species_code,
@@ -1069,6 +1077,41 @@ class DatabaseService:
                 )
         except Exception as e:
             logger.error(f"Failed to increment lizzy stats: {e}")
+
+    async def is_in_lizzy_bootstrap(
+        self, ringing_scheme: str, ring_number: str, event_date
+    ) -> bool:
+        """
+        Controlla se (ringing_scheme, ring_number, event_date) e' gia'
+        presente in lizzy_bootstrap_fingerprints (popolata dal bootstrap
+        storico EPE, 15/09/2026, vedi backend/scripts/bootstrap_lizzy_stats.py)
+        -- se si, l'evento e' gia' stato contato nei contatori Lizzy dal
+        bootstrap e va SALTATO l'incremento organico corrispondente, per
+        evitare un doppio conteggio dello stesso evento storico. Usata da
+        archive_service._maybe_increment_lizzy_stats PRIMA di chiamare
+        increment_lizzy_stats. Fail-closed in caso di errore (deciso con
+        Davide il 15/09/2026): ritorna True (tratta come "gia' presente",
+        salta l'incremento) per non rischiare un doppio conteggio quando il
+        controllo stesso non e' verificabile.
+        """
+        if not self.pool or not self.is_enabled:
+            return False
+
+        try:
+            async with self.pool.acquire() as conn:
+                row = await conn.fetchval(
+                    """
+                    SELECT 1 FROM lizzy_bootstrap_fingerprints
+                    WHERE ringing_scheme = $1 AND ring_number = $2 AND event_date = $3
+                    """,
+                    ringing_scheme,
+                    ring_number,
+                    event_date,
+                )
+                return row is not None
+        except Exception as e:
+            logger.error(f"Failed to check lizzy bootstrap fingerprint: {e}")
+            return True
 
     async def get_lizzy_species_place_pentad_stats(
         self, species_code: str, place_code: str, pentad: int
