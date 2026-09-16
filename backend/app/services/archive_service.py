@@ -96,8 +96,15 @@ class ArchiveService:
             if source_version == "euring_2020":
                 canonical_string = euring_string
             else:
+                # conversion_service.py (self.parsers, _generate_target_string) e i
+                # suoi altri due chiamanti reali (euring_api.py righe ~424 e ~4093)
+                # usano le versioni SENZA prefisso 'euring_' ('1966'/'1979'/'2000'/
+                # '2020'). Va normalizzato qui prima di chiamarlo, altrimenti
+                # self.parsers.get(source_version) fallisce sempre (bug trovato
+                # il 16/09/2026 durante il test anti-doppio-conteggio Lizzy).
+                unprefixed_source = source_version.replace("euring_", "", 1)
                 result = self._conversion_service.convert_semantic(
-                    euring_string, source_version, "euring_2020"
+                    euring_string, unprefixed_source, "2020"
                 )
                 if not result.get("success") or not result.get("converted_string"):
                     logger.info(
