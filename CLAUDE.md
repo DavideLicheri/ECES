@@ -168,7 +168,7 @@ Tests use `pytest` + `pytest-asyncio` + `hypothesis`. The test suite is sparse �
 
 ## Lizzy — AI Assistant
 
-Lizzy è l'assistente AI specializzata in inanellamento ornitologico EURING. Gira su qwen2.5:14b via Ollama + Open WebUI sulla stessa VM ISPRA (<VM_IP>).
+Lizzy è l'assistente AI specializzata in inanellamento ornitologico EURING. Gira su qwen2.5:14b via Ollama + Open WebUI su infrastruttura dedicata esterna alla VM ISPRA — soluzione temporanea in attesa dell'arrivo di GPU dedicate su ISPRA.
 
 ### Infrastruttura
 - Ollama: porta 11434, CPU-only, override in `/etc/systemd/system/ollama.service.d/override.conf`

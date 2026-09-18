@@ -335,10 +335,10 @@ eces/
 - **`DECISIONI_TECNICHE.md`**: Decisioni tecniche
 - **`GITHUB_SETUP.md`**: Setup repository GitHub
 
-### Architecture (`docs/architecture/`)
+### Architecture (`internal-docs/architecture/`)
 - Diagrammi architettura (se presenti)
 
-### Deployment (`docs/deployment/`)
+### Deployment (`internal-docs/deployment/`)
 - Guide deployment specifiche
 
 ## AI Context (`ai-context/`)
@@ -430,7 +430,7 @@ Documentazione per agenti AI:
 → `backend/app/services/recognition_engine.py`
 
 **...il deployment**:
-→ `docs/DEPLOYMENT.md` + script custom
+→ `internal-docs/DEPLOYMENT.md` + script custom
 
 **...i domini semantici**:
 → `frontend/src/utils/semanticDomains.ts` (frontend)

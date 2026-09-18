@@ -77,8 +77,7 @@ else:
 
 ## Credenziali Sviluppo 🔑
 
-- **Username**: admin
-- **Password**: admin
+- Vedi gestore password (rimosso da qui il 18/09/2026 dopo revisione di sicurezza — era esposto in chiaro su repository pubblico)
 - **Ruolo**: Super Admin
 
 ## Workflow Raccomandato 🎯
