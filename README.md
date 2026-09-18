@@ -42,6 +42,7 @@ PostgreSQL (analytics)          Open WebUI / Ollama
 | `eces_field_info` | Restituisce la semantica di un campo; con `code=XX` decodifica un singolo valore (lookup puntuale) |
 | `eces_species_lookup` | Ricerca specie da CSV EURING locale (3628 specie, aggiornamento mensile) |
 | `ispra_species_lookup` | Nome italiano ufficiale CNI-ISPRA via endpoint SPARQL |
+| `eces_fenologia` | Conteggi storici EURING per specie+luogo+periodo dell'anno (fenologia: migrazione, svernamento, riproduzione), con dichiarazione degli schemi di inanellamento coinvolti |
 
 ---
 
@@ -57,6 +58,7 @@ PostgreSQL (analytics)          Open WebUI / Ollama
 - **Autenticazione JWT** con ruoli (user, matrix_editor, super_admin)
 - **Persistenza SKOS** su file JSON con invalidazione cache
 - **Analytics** su PostgreSQL (query log per super_admin)
+- **Statistiche fenologiche Lizzy** — conteggi aggregati specie/luogo/pentade/schema, popolati da bootstrap storico [ISPRA RDF](https://dati.isprambiente.it/) (oltre 8,2 milioni di inanellamenti storici) e aggiornati dai dati organici correnti, con meccanismo anti-doppio-conteggio basato su impronte (schema+anello+data)
 
 ---
 
@@ -191,4 +193,4 @@ Health:  curl http://localhost:8000/api/euring/health
 
 ## Licenza
 
-Uso interno ISPRA — sviluppato per la gestione dei dati di inanellamento degli uccelli.
+Uso interno ISPRA — sviluppato per l'analisi dei dati EURING.
