@@ -645,7 +645,7 @@ async def get_euring_versions_matrix():
     Get comparative matrix of all EURING versions
     
     Returns a structured comparison showing field evolution across versions,
-    with fields aligned to EURING 2000 (EPE order) as reference.
+    with fields aligned to EURING 2000 as reference.
     
     Requirements: New functionality for EURING model overview
     """

@@ -242,8 +242,9 @@
     </div>
     <div class="roles" style="margin-top:12px;">
       <div class="role"><span class="role-name">super_admin</span><br><span class="role-perm">gestione completa</span></div>
-      <div class="role"><span class="role-name">matrix_editor</span><br><span class="role-perm">modifica campi</span></div>
+      <div class="role"><span class="role-name">rings_admin</span><br><span class="role-perm">coordinamento centro, dati propri estesi</span></div>
       <div class="role"><span class="role-name">user</span><br><span class="role-perm">riconoscimento, conversione</span></div>
+      <div class="role"><span class="role-name">viewer</span><br><span class="role-perm">sola lettura</span></div>
     </div>
   </div>
 
@@ -297,14 +298,14 @@
 <div class="section-block">
   <h3>Funzionalità</h3>
   <div class="feature-grid">
-    <div class="feature"><span class="feature-title">Matrice EURING</span><span class="feature-desc">visualizzazione comparativa di tutti i campi nelle 4 versioni, con ordinamento EPE e identificazione dei campi aggiuntivi per versione</span></div>
+    <div class="feature"><span class="feature-title">Matrice EURING</span><span class="feature-desc">visualizzazione comparativa di tutti i campi nelle 4 versioni, con identificazione dei campi aggiuntivi per versione</span></div>
     <div class="feature"><span class="feature-title">Editor Campi</span><span class="feature-desc">modifica interattiva delle proprietà dei campi (descrizione, tipo, posizione, lunghezza, dominio semantico, nome canonico cross-versione, valori ammessi, tipo semantico, sorgente, range)</span></div>
     <div class="feature"><span class="feature-title">Aggiunta/cancellazione campi</span><span class="feature-desc">per singola versione</span></div>
     <div class="feature"><span class="feature-title">Riconoscimento automatico</span><span class="feature-desc">della versione di una stringa EURING</span></div>
     <div class="feature"><span class="feature-title">Parsing stringa</span><span class="feature-desc">decomposizione campo per campo in italiano o inglese</span></div>
     <div class="feature"><span class="feature-title">Conversione semantica</span><span class="feature-desc">tra versioni</span></div>
     <div class="feature"><span class="feature-title">Lookup puntuale</span><span class="feature-desc">decodifica di un singolo codice senza restituire l'intero dizionario (ottimizzato per place_code: 2052 voci)</span></div>
-    <div class="feature"><span class="feature-title">Autenticazione JWT</span><span class="feature-desc">con ruoli (user, matrix_editor, super_admin)</span></div>
+    <div class="feature"><span class="feature-title">Autenticazione JWT</span><span class="feature-desc">con ruoli (viewer, user, rings_admin, super_admin)</span></div>
     <div class="feature"><span class="feature-title">Persistenza SKOS</span><span class="feature-desc">su file JSON con invalidazione cache</span></div>
     <div class="feature"><span class="feature-title">Analytics</span><span class="feature-desc">su PostgreSQL (query log per super_admin)</span></div>
     <div class="feature"><span class="feature-title">Statistiche fenologiche Lizzy</span><span class="feature-desc">conteggi aggregati specie/luogo/pentade/schema, popolati da bootstrap storico <a href="https://dati.isprambiente.it/">ISPRA RDF</a> (oltre 8,2 milioni di inanellamenti storici), con meccanismo anti-doppio-conteggio basato su impronte</span></div>
@@ -318,7 +319,7 @@
     <tbody>
         <tr><td>1966</td><td>Separato da spazi</td><td>11</td><td>Prima versione</td></tr>
         <tr><td>1979</td><td>Posizionale fisso</td><td>~30</td><td>78 caratteri</td></tr>
-        <tr><td>2000</td><td>Posizionale fisso</td><td>~35</td><td>96 caratteri, standard EPE</td></tr>
+        <tr><td>2000</td><td>Posizionale fisso</td><td>~35</td><td>96 caratteri</td></tr>
         <tr><td>2020</td><td>Pipe-delimited</td><td>64</td><td>Formato moderno, coordinate decimali</td></tr>
     </tbody>
   </table>
@@ -330,7 +331,7 @@
     <thead><tr><th>Metodo</th><th>Endpoint</th><th>Descrizione</th></tr></thead>
     <tbody>
         <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/versions</code></td><td>Matrice campi × versioni (riferimento 2020)</td></tr>
-        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/versions/matrix</code></td><td>Matrice campi × versioni (ordinamento EPE 2000)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/versions/matrix</code></td><td>Matrice campi × versioni (ordinamento EURING 2000)</td></tr>
         <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/field/{name}?version=2020</code></td><td>Semantica completa di un campo</td></tr>
         <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/field/{name}/lookup?code=XX&amp;version=2020</code></td><td>Decodifica un singolo codice</td></tr>
         <tr><td><span class="method-badge put">PUT</span></td><td><code>/api/euring/field/{name}?version=2020</code></td><td>Aggiorna dati semantici di un campo</td></tr>

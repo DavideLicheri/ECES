@@ -48,14 +48,14 @@ PostgreSQL (analytics)          Open WebUI / Ollama
 
 ## Funzionalità
 
-- **Matrice EURING** — visualizzazione comparativa di tutti i campi nelle 4 versioni, con ordinamento EPE e identificazione dei campi aggiuntivi per versione
+- **Matrice EURING** — visualizzazione comparativa di tutti i campi nelle 4 versioni, con identificazione dei campi aggiuntivi per versione
 - **Editor Campi** — modifica interattiva delle proprietà dei campi (descrizione, tipo, posizione, lunghezza, dominio semantico, nome canonico cross-versione, valori ammessi con descrizioni, tipo semantico, sorgente, range)
 - **Aggiunta e cancellazione campi** per singola versione
 - **Riconoscimento automatico** della versione di una stringa EURING
 - **Parsing stringa** — decomposizione campo per campo in italiano o inglese
 - **Conversione semantica** tra versioni
 - **Lookup puntuale** — decodifica di un singolo codice senza restituire l'intero dizionario (ottimizzato per place_code: 2052 voci)
-- **Autenticazione JWT** con ruoli (user, matrix_editor, super_admin)
+- **Autenticazione JWT** con ruoli (viewer, user, rings_admin, super_admin)
 - **Persistenza SKOS** su file JSON con invalidazione cache
 - **Analytics** su PostgreSQL (query log per super_admin)
 - **Statistiche fenologiche Lizzy** — conteggi aggregati specie/luogo/pentade/schema, popolati da bootstrap storico [ISPRA RDF](https://dati.isprambiente.it/) (oltre 8,2 milioni di inanellamenti storici) e aggiornati dai dati organici correnti, con meccanismo anti-doppio-conteggio basato su impronte (schema+anello+data)
@@ -135,7 +135,7 @@ Disponibile su **http://localhost:3000**
 |----------|---------|-------|------|
 | 1966 | Separato da spazi | 11 | Prima versione |
 | 1979 | Posizionale fisso | ~30 | 78 caratteri |
-| 2000 | Posizionale fisso | ~35 | 96 caratteri, standard EPE |
+| 2000 | Posizionale fisso | ~35 | 96 caratteri |
 | 2020 | Pipe-delimited | 64 | Formato moderno, coordinate decimali |
 
 ---
@@ -145,7 +145,7 @@ Disponibile su **http://localhost:3000**
 | Metodo | Endpoint | Descrizione |
 |--------|----------|-------------|
 | `GET` | `/api/euring/versions` | Matrice campi × versioni (riferimento 2020) |
-| `GET` | `/api/euring/versions/matrix` | Matrice campi × versioni (ordinamento EPE 2000) |
+| `GET` | `/api/euring/versions/matrix` | Matrice campi × versioni (ordinamento EURING 2000) |
 | `GET` | `/api/euring/field/{name}?version=2020` | Semantica completa di un campo |
 | `GET` | `/api/euring/field/{name}/lookup?code=XX&version=2020` | Decodifica un singolo codice |
 | `PUT` | `/api/euring/field/{name}?version=2020` | Aggiorna dati semantici di un campo |
