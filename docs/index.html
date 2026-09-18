@@ -96,6 +96,23 @@
   .role { padding: 6px 10px; border-radius: 6px; font-size: 0.72em; background: #1a2028; border: 1px solid #2f3336; }
   .role-name { font-weight: 700; color: #b8a4ff; }
   .role-perm { color: #71767b; }
+
+  .section-block { max-width: 960px; margin: 30px auto 0; }
+  .section-block h3 { font-size: 0.8em; color: #71767b; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .feature { padding: 10px 12px; border-radius: 6px; background: #1a2028; border: 1px solid #2f3336; font-size: 0.78em; }
+  .feature-title { font-weight: 700; color: #7ee8b8; display: block; margin-bottom: 3px; }
+  .feature-desc { color: #aab8c2; }
+  .feature-desc a { color: #8ecdf7; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.78em; }
+  .data-table th { text-align: left; padding: 8px 10px; color: #71767b; font-weight: 600; border-bottom: 1px solid #2f3336; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; }
+  .data-table td { padding: 8px 10px; border-bottom: 1px solid #1a2028; color: #e7e9ea; }
+  .data-table code { background: #1a2028; padding: 2px 6px; border-radius: 4px; color: #8ecdf7; font-size: 0.95em; }
+  .method-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.85em; font-weight: 700; }
+  .method-badge.get { background: #1d9bf030; color: #8ecdf7; }
+  .method-badge.post { background: #00ba7c30; color: #7ee8b8; }
+  .method-badge.put { background: #ffd16630; color: #ffe6a0; }
+  .method-badge.delete { background: #f4212e30; color: #f7868b; }
 </style>
 </head>
 <body>
@@ -275,6 +292,60 @@
     <span class="format-year">2020</span>
     <div class="format-bar pipe">Pipe-delimited "|" · lunghezza variabile · decimali</div>
   </div>
+</div>
+
+<div class="section-block">
+  <h3>Funzionalità</h3>
+  <div class="feature-grid">
+    <div class="feature"><span class="feature-title">Matrice EURING</span><span class="feature-desc">visualizzazione comparativa di tutti i campi nelle 4 versioni, con ordinamento EPE e identificazione dei campi aggiuntivi per versione</span></div>
+    <div class="feature"><span class="feature-title">Editor Campi</span><span class="feature-desc">modifica interattiva delle proprietà dei campi (descrizione, tipo, posizione, lunghezza, dominio semantico, nome canonico cross-versione, valori ammessi, tipo semantico, sorgente, range)</span></div>
+    <div class="feature"><span class="feature-title">Aggiunta/cancellazione campi</span><span class="feature-desc">per singola versione</span></div>
+    <div class="feature"><span class="feature-title">Riconoscimento automatico</span><span class="feature-desc">della versione di una stringa EURING</span></div>
+    <div class="feature"><span class="feature-title">Parsing stringa</span><span class="feature-desc">decomposizione campo per campo in italiano o inglese</span></div>
+    <div class="feature"><span class="feature-title">Conversione semantica</span><span class="feature-desc">tra versioni</span></div>
+    <div class="feature"><span class="feature-title">Lookup puntuale</span><span class="feature-desc">decodifica di un singolo codice senza restituire l'intero dizionario (ottimizzato per place_code: 2052 voci)</span></div>
+    <div class="feature"><span class="feature-title">Autenticazione JWT</span><span class="feature-desc">con ruoli (user, matrix_editor, super_admin)</span></div>
+    <div class="feature"><span class="feature-title">Persistenza SKOS</span><span class="feature-desc">su file JSON con invalidazione cache</span></div>
+    <div class="feature"><span class="feature-title">Analytics</span><span class="feature-desc">su PostgreSQL (query log per super_admin)</span></div>
+    <div class="feature"><span class="feature-title">Statistiche fenologiche Lizzy</span><span class="feature-desc">conteggi aggregati specie/luogo/pentade/schema, popolati da bootstrap storico <a href="https://dati.isprambiente.it/">ISPRA RDF</a> (oltre 8,2 milioni di inanellamenti storici), con meccanismo anti-doppio-conteggio basato su impronte</span></div>
+  </div>
+</div>
+
+<div class="section-block">
+  <h3>Versioni EURING supportate</h3>
+  <table class="data-table">
+    <thead><tr><th>Versione</th><th>Formato</th><th>Campi</th><th>Note</th></tr></thead>
+    <tbody>
+        <tr><td>1966</td><td>Separato da spazi</td><td>11</td><td>Prima versione</td></tr>
+        <tr><td>1979</td><td>Posizionale fisso</td><td>~30</td><td>78 caratteri</td></tr>
+        <tr><td>2000</td><td>Posizionale fisso</td><td>~35</td><td>96 caratteri, standard EPE</td></tr>
+        <tr><td>2020</td><td>Pipe-delimited</td><td>64</td><td>Formato moderno, coordinate decimali</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-block">
+  <h3>API principali</h3>
+  <table class="data-table">
+    <thead><tr><th>Metodo</th><th>Endpoint</th><th>Descrizione</th></tr></thead>
+    <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/versions</code></td><td>Matrice campi × versioni (riferimento 2020)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/versions/matrix</code></td><td>Matrice campi × versioni (ordinamento EPE 2000)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/field/{name}?version=2020</code></td><td>Semantica completa di un campo</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/euring/field/{name}/lookup?code=XX&amp;version=2020</code></td><td>Decodifica un singolo codice</td></tr>
+        <tr><td><span class="method-badge put">PUT</span></td><td><code>/api/euring/field/{name}?version=2020</code></td><td>Aggiorna dati semantici di un campo</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/field/{name}/sync</code></td><td>Sincronizza dati strutturali ↔ semantici</td></tr>
+        <tr><td><span class="method-badge put">PUT</span></td><td><code>/api/euring/versions/matrix/field</code></td><td>Aggiorna proprietà strutturale di un campo</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/versions/matrix/field/add</code></td><td>Aggiunge un campo a una versione</td></tr>
+        <tr><td><span class="method-badge delete">DELETE</span></td><td><code>/api/euring/versions/matrix/field/remove</code></td><td>Rimuove un campo da una versione</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/recognize</code></td><td>Riconosce la versione di una stringa</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/parse</code></td><td>Parsing campo per campo di una stringa</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/convert</code></td><td>Conversione semantica tra versioni</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/euring/reload</code></td><td>Hot-reload dati JSON senza riavvio</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td><code>/api/auth/login</code></td><td>Login (restituisce JWT)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td><code>/api/auth/me</code></td><td>Utente corrente</td></tr>
+    </tbody>
+  </table>
 </div>
 
 </body>
