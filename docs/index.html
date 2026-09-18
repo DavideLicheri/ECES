@@ -8,6 +8,8 @@
   body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0f1419; color: #e7e9ea; padding: 40px; }
   h1 { text-align: center; font-size: 1.8em; letter-spacing: 2px; margin-bottom: 6px; color: #fff; }
   .subtitle { text-align: center; font-size: 0.85em; color: #71767b; margin-bottom: 40px; letter-spacing: 1px; }
+  .intro { max-width: 720px; margin: 0 auto 40px; font-size: 0.92em; line-height: 1.6; color: #aab8c2; text-align: left; }
+  .intro a { color: #8ecdf7; }
   .diagram { display: grid; grid-template-columns: 1fr; gap: 0; max-width: 960px; margin: 0 auto; position: relative; }
 
   /* Layer styling */
@@ -100,6 +102,12 @@
 
 <h1>ECES</h1>
 <div class="subtitle">EURING Code Evolution System &nbsp;·&nbsp; ISPRA – DG SINA</div>
+
+<div class="intro">
+  <a href="https://www.euring.org">EURING</a> è l'organizzazione scientifica che coordina l'inanellamento degli uccelli selvatici in Europa, raccogliendo dati standardizzati da oltre 40 paesi. Per lo scambio di questi dati EURING ha definito nel tempo un codice posizionale che ha subito quattro revisioni (1966, 1979, 2000, 2020), ciascuna con struttura, lunghezza e semantica dei campi proprie.
+  <br><br>
+  <strong>ECES</strong> nasce per gestire questa evoluzione: permette di confrontare le versioni del codice, mantenere una mappatura semantica cross-versione, editare le definizioni dei campi in modo controllato e persistente, ed esporre le informazioni semantiche via API per strumenti AI — come <strong>Lizzy</strong>, l'assistente AI che usa ECES come unica fonte di verità per interpretare e convertire stringhe EURING.
+</div>
 
 <div class="main-grid">
 <div class="main-col">
